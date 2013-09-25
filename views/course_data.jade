@@ -9,8 +9,7 @@ html
 	body
 		#nav
 			ul
-				- for(var i in data)
-					li(class="course",courseID=data[i][0].parentpageId)= data[i][0].courseName
-					- for(var j in data[i])
-						li(class="chapter",chapterID=data[i][j].subpageId)= data[i][j].chapterName
+				- each item in data
+					li(class="course",courseID=item.parentpageId)= item.name
+					li(class="chapter",chapterID=item.chapterInfo)= item.chapterInfo
 		#content

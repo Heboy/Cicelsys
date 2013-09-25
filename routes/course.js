@@ -18,26 +18,23 @@ var pool = mysql.createPool(conf.local);
  */
 exports.courseData = function (req, res, next) {
 	var userId = req.body.userId;
-	var result = null;
+	var courseInfo = null;
 	userId = 1;
 	pool.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 		}
-		conn.query('CALL pro_getUserCourses2(?)', [userId], function (err, result) {
-			result = result[0];
-			var courseInfo = [];
-			var tmpArr = [];
-			for (var i = result.length - 1; i >= 0; i--) {
-				tmpArr.push(result[i])
-				if(result[i-1]==undefined||result[i].parentpageId != result[i-1].parentpageId){
-					courseInfo.push(tmpArr);
-					tmpArr = [];
-				}
+		conn.query('CALL pro_get_man_parent_info(?)', [userId], function (err, result) {
+			var courseInfo = result[0];
+			if (courseInfo.length > 0) {
+				res.render('course_data',{data:courseInfo});
 			}
-			res.render('course_data', {data: courseInfo});
-		})
+			else {
+				conn.release();
+			}
+		});
 	});
+
 }
 
 exports.getCourseData = function (req, res, next) {
@@ -50,12 +47,12 @@ exports.getCourseData = function (req, res, next) {
 	var result = null;
 	pool.getConnection(function (err, conn) {
 		if (err) {
-			utils.ReturnResult(res, {data: err});
+			utils.ReturnResult(res,{data:err});
 		}
-		else {
+		else{
 			conn.query('CALL pro_getCoursePV4(?,?,?)', [courseID, startTime, delay], function (err, result) {
-				if (err) {
-					utils.ReturnResult(res, {data: err});
+				if(err){
+					utils.ReturnResult(res,{data:err});
 				}
 				if (result[0].length > 0) {
 					result = result[0];
@@ -65,7 +62,7 @@ exports.getCourseData = function (req, res, next) {
 					}
 				}
 				conn.release();
-				utils.ReturnResult(res, {data: result});
+				utils.ReturnResult(res,{data:result});
 			});
 		}
 	});
