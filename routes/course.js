@@ -7,6 +7,7 @@
  */
 
 var conf = require('./config.js');
+var utils = require('./utils.js');
 var mysql = require('mysql');
 var pool = mysql.createPool(conf.local);
 /**
@@ -26,37 +27,43 @@ exports.courseData = function (req, res, next) {
 		conn.query('CALL pro_get_man_parent_info(?)', [userId], function (err, result) {
 			var courseInfo = result[0];
 			if (courseInfo.length > 0) {
-				var count = 0;//计数器，记录子查询的个数
+				res.render('course_data',{data:courseInfo});
 			}
 			else {
 				conn.release();
 			}
 		});
 	});
+
 }
 
 exports.getCourseData = function (req, res, next) {
 	var courseID = req.body.courseID;	//
 	var startTime = req.body.startTime; //时间戳/1000
 	var delay = req.body.delay;	//天数
-	var courseData = null;
 	courseID = 1;
 	startTime = new Date().getTime() / 1000;
 	delay = 30;
+	var result = null;
 	pool.getConnection(function (err, conn) {
 		if (err) {
-			console.log(err);
+			utils.ReturnResult(res,{data:err});
 		}
-		conn.query('CALL pro_getCoursePV4(?,?,?)', [courseID, startTime, delay], function (err, result) {
-			if (result[0].length > 0) {
-				var result = result[0];
-				for (var i in result) {
-					result[i].now_day = new Date(result[i].now_day).getFullYear() + ":" +
-						(new Date(result[i].now_day).getMonth() + 1) + ":" + new Date(result[i].now_day).getDate();
+		else{
+			conn.query('CALL pro_getCoursePV4(?,?,?)', [courseID, startTime, delay], function (err, result) {
+				if(err){
+					utils.ReturnResult(res,{data:err});
 				}
-				res.write(JSON.stringify({data: result}));
-			}
-			conn.release();
-		});
+				if (result[0].length > 0) {
+					result = result[0];
+					for (var i in result) {
+						result[i].now_day = new Date(result[i].now_day).getFullYear() + "-" +
+							(new Date(result[i].now_day).getMonth() + 1) + "-" + new Date(result[i].now_day).getDate();
+					}
+				}
+				conn.release();
+				utils.ReturnResult(res,{data:result});
+			});
+		}
 	});
 }
