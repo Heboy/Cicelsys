@@ -14,10 +14,10 @@
  */
 
 Ext.onReady(function () {
-	var courseID = Ext.query("[class=course]")[0].getAttribute("courseId");
-	requestCourseData('/data/course',{courseID: courseID,startTime: Math.floor(new Date().getTime()/1000),delay: 30},true);
+	var chapterID = Ext.query("[class=chapter]")[0].getAttribute("chapterId");
+	requestChapterData('/data/chapter',{chapterID: chapterID,startTime: Math.floor(new Date().getTime()/1000),delay: 30},true);
 	tableGrid("content");
-	EnviromentData.courseID = courseID;
+	EnviromentData = chapterID;
 })
 
 var EnviromentData = {
@@ -29,7 +29,7 @@ var EnviromentData = {
 	currentPage: null//当前页，用于table分页
 }
 
-var requestCourseData = function(url,params,isAsync){
+var requestChapterData = function(url,params,isAsync){
 	Ext.Ajax.request({
 		url: url,
 		params: params,
@@ -86,13 +86,13 @@ var tableGrid = function (renderTo) {
 							EnviromentData.currentPage = 1;
 							EnviromentData.totalPage = Math.ceil(during / 30);
 							if (during > 30) { //查询大于30天
-								requestCourseData('/data/course',{
-									courseID: EnviromentData.courseID,startTime: EnviromentData.searchStartTime,delay: 30
+								requestChapterData('/data/chapter',{
+									chapterID: EnviromentData.chapterID,startTime: EnviromentData.searchStartTime,delay: 30
 								},false);
 								Ext.Ajax.on('requestcomplete',dataCompleteHandle);
 							} else {
-								requestCourseData('/data/course',{
-									courseID: EnviromentData.courseID,startTime: EnviromentData.searchStartTime,delay: during
+								requestChapterData('/data/chapter',{
+									chapterID: EnviromentData.chapterID,startTime: EnviromentData.searchStartTime,delay: during
 								},false);
 								Ext.Ajax.on('requestcomplete',dataCompleteHandle);
 							}
@@ -133,7 +133,7 @@ var tableGrid = function (renderTo) {
 						return;
 					} else {
 						EnviromentData.searchStartTime = EnviromentData.searchStartTime + 2592000;
-						requestCourseData(EnviromentData.courseID, EnviromentData.searchStartTime, 30);
+						requestChapterData(EnviromentData.chapterID, EnviromentData.searchStartTime, 30);
 						EnviromentData.currentPage = EnviromentData.currentPage - 1;
 					}
 				}},
@@ -149,7 +149,7 @@ var tableGrid = function (renderTo) {
 						else {
 							during = (EnviromentData.searchStartTime - EnviromentData.searchEndTime) / 86400 + 1;
 						}
-						requestCourseData(EnviromentData.courseID, EnviromentData.searchStartTime, during);
+						requestChapterData(EnviromentData.chapterID, EnviromentData.searchStartTime, during);
 						EnviromentData.currentPage = EnviromentData.currentPage + 1;
 					}
 				}},

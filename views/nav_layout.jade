@@ -1,0 +1,16 @@
+doctype 5
+html
+	head
+		meta(chartset='uft-8')
+		link(rel='stylesheet', href='/javascripts/libs/ExtJS/resources/css/ext-all-debug.css')
+		script(src='/javascripts/libs/ExtJS/ext-all-debug.js')
+		script(src='/javascripts/Model.js')
+		script(src='/javascripts/course_data.js')
+	body
+		#nav
+			ul
+				- for(var i in data)
+					li(class="course",courseID=data[i][0].parentpageId)= data[i][0].courseName
+					- for(var j in data[i])
+						li(class="chapter",chapterID=data[i][j].subpageId)= data[i][j].chapterName
+			block below

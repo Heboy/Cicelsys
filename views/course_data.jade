@@ -1,15 +1,4 @@
-doctype 5
-html
-	head
-		meta(chartset='uft-8')
-		link(rel='stylesheet', href='/javascripts/libs/ExtJS/resources/css/ext-all-debug.css')
-		script(src='/javascripts/libs/ExtJS/ext-all-debug.js')
-		script(src='/javascripts/Model.js')
-		script(src='/javascripts/course_data.js')
-	body
-		#nav
-			ul
-				- each item in data
-					li(class="course",courseID=item.parentpageId)= item.name
-					li(class="chapter",chapterID=item.chapterInfo)= item.chapterInfo
-		#content
+extends nav_layout
+block below
+	#content
+	#map
