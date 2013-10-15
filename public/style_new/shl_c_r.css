@@ -1,0 +1,211 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: '微软雅黑';
+}
+
+html,body{
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    height: 100%;
+}
+
+.x-body {
+    font-size: 15px;
+}
+
+ul{
+    list-style: none;
+    cursor: pointer;
+}
+
+.clear{
+    clear: both;
+}
+
+#wrap{
+    margin: 0 auto;
+    width: 1000px;
+    min-height:100% ;
+}
+
+#header{
+    height: 50px;
+    background-color: #8ab8da;
+    font-size: 50px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/************************************************main is here***********************************************************/
+#main{
+    margin-top: 20px;
+}
+
+#left {
+    width: 150px;
+    float: left;
+    margin-top: 20px;
+}
+#first {
+    margin-left: 80px;
+    margin-top: 10px;
+    float: left;
+}
+
+.first-tips{
+    margin-left: 65px;
+    padding-top: 10px;
+    font-size: 25px;
+    width: 100px;
+    font-family: '微软雅黑';
+}
+
+#a_btn {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+    background-position: -4px -5px;
+}
+
+#b_btn {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+    background-position: -4px -66px;
+}
+
+#c_btn {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+    background-position: -4px -127px;
+}
+
+#second {
+    display: none;
+    position: relative;
+    left: 80px;
+    top: 10px;
+}
+
+.second-nav {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+}
+
+.second-tips{
+    position: absolute;
+    margin-left: 65px;
+    padding-top: 10px;
+    font-size: 25px;
+    width: 100px;
+    font-family: '微软雅黑';
+}
+
+.chapter_btn {
+    background-position: -66px -5px;
+}
+
+#nav{
+    float: left;
+    width: 110px;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.nav-list{
+    overflow: hidden;
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
+
+#nav1{
+    background-color: #6699cc;
+    border-left: solid 10px #dd8788;
+}
+
+#nav2{
+    background-color: #336699;
+    border-left: solid 10px #8daccb;
+}
+
+#content{
+    width: 850px;
+    float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#pag{
+    width: 100%;
+    height: 40px;
+    background-color: #3399cc;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+#overview,#ability,#seg,#knowledge{
+    border-left: solid 1px lightgray;
+    border-right: solid 1px lightgray;
+    border-bottom: solid 1px lightgray;
+}
+
+#first-btn{
+    background-color: #ffffff;
+    color: #3399cc;
+}
+
+.pag-btn{
+    float: left;
+    margin: 16px 30px 0px 10px;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.title2{
+    padding: 15px 0 10px 0;
+}
+
+#seg{
+    display: none;
+}
+
+#knowledge{
+    display: none;
+}
+
+#ability{
+    display: none;
+}
+
+#footer{
+    width: 100%;
+    margin-top: 40px;
+    background-color: cadetblue;
+}
+
+/***************************重写通用表格样式**********************************************/
+.x-panel{
+    margin: 10px 0px 15px 0px;
+}
+
+.x-column-header-inner {
+    background-color: #3399CC;
+    color: #FFFFFF;
+    font-size: 15px;
+    /*font-family: '微软雅黑';*/
+}
+
+.x-grid-cell-inner {
+    /*font-family: '微软雅黑';*/
+    font-size: 15px;
+}
+/*End*/
