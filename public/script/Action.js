@@ -43,7 +43,7 @@ Action.prototype.sildeLeft = function (speed, endPos) {
 		self.element.style.marginLeft = self.element.nowPos + 'px';
 	}
 
-	self.timer = setInterval(_silde, 30);
+	self.timer = setInterval(_silde, 10);
 }
 
 /**
@@ -63,7 +63,7 @@ Action.prototype.sildeRight = function (speed, endPos) {
 		self.element.style.marginLeft = self.element.nowPos + 'px';
 	}
 
-	self.timer = setInterval(_silde, 30);
+	self.timer = setInterval(_silde, 10);
 }
 
 /**

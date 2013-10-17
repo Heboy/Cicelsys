@@ -15,9 +15,6 @@ first.addEventListener('click', clickHandle);
 
 function clickHandle(e) {
 	//声明三个动画效果
-	if(e.target.getAttribute('class')==='tips first-tips'){
-		return;
-	}
 	var action = new Action(first);
 	var action2 = new Action(second);
 	var action3 = new Actions(firstTips);
@@ -25,14 +22,14 @@ function clickHandle(e) {
 	//当鼠标点击第一个按钮并且导航栏是折叠状态，展开导航栏
 	if(e.target===firstBtns[0]&&firstSwitch==='fold'){
 		firstSwitch = 'unfold';
-		action.sildeLeft(10, 0);
+		action.sildeLeft(5, 5);
 		action3.gradualHidden(0.2);
 		action2.gradualShow(0.1);
 	}
 	//鼠标点击非第一个按钮并且开关为展开状态，折叠导航栏
 	else if((e.target===firstBtns[1]|| e.target===firstBtns[2])&&firstSwitch==='unfold'){
 		firstSwitch = 'fold';
-		action.sildeRight(10,40);
+		action.sildeRight(5,50);
 		action3.gradualShow(0.2);
 		action2.gradualHidden(0.1);
 	}

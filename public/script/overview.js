@@ -144,13 +144,10 @@ function changPag(e) {
 				contentArr[i].attr('info', 'display');
 				switch (i) {
 					case 1:
-						seg();
 						break;
 					case 2:
-						knowledge();
 						break;
 					case 3:
-						ability();
 						break;
 					default :
 						break;
