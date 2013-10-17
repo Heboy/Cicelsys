@@ -25,33 +25,38 @@ ul{
 }
 
 #wrap{
-    margin: 0 auto;
-    width: 1000px;
+    width: 100%;
     min-height:100% ;
 }
 
 #header{
-    height: 50px;
-    background-color: #8ab8da;
+    height: 80px;
+    background-color: #8ab8da; 
+}
+#header p {
+    padding-top: 28px; 
     font-size: 50px;
     font-weight: bold;
     color: #ffffff;
 }
 
-/************************************************main is here***********************************************************/
+/**********************************************************************************
+***************************** main ************************************************
+**********************************************************************************/
 #main{
-    margin-top: 20px;
+    width: 100%;
 }
 
+/******************** left ********************/
 #left {
-    width: 150px;
+    width: 280px;
     float: left;
     margin-top: 20px;
 }
 #first {
     margin-left: 80px;
     margin-top: 10px;
-    float: left;
+    /*float: left;*/
 }
 
 .first-tips{
@@ -90,7 +95,7 @@ ul{
     display: none;
     position: relative;
     left: 80px;
-    top: 10px;
+    top: -180px;
 }
 
 .second-nav {
@@ -101,7 +106,7 @@ ul{
 }
 
 .second-tips{
-    position: absolute;
+    position: relative;
     margin-left: 65px;
     padding-top: 10px;
     font-size: 25px;
@@ -113,13 +118,13 @@ ul{
     background-position: -66px -5px;
 }
 
-#nav{
+/*#nav{
     float: left;
     width: 110px;
     color: #ffffff;
     font-weight: bold;
     text-align: center;
-}
+}*/
 
 .nav-list{
     overflow: hidden;
@@ -127,7 +132,7 @@ ul{
     padding-bottom: 35px;
 }
 
-#nav1{
+/*#nav1{
     background-color: #6699cc;
     border-left: solid 10px #dd8788;
 }
@@ -135,13 +140,13 @@ ul{
 #nav2{
     background-color: #336699;
     border-left: solid 10px #8daccb;
-}
+}*/
 
+/******************** content ********************/
 #content{
-    width: 850px;
+    width: 1000px;
     float: left;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-right: 50px;
 }
 
 #pag{
@@ -188,8 +193,13 @@ ul{
 
 #footer{
     width: 100%;
-    margin-top: 40px;
     background-color: cadetblue;
+    margin-top: 40px;
+}
+#footer p {
+    color: #fff;
+    font-size: 5em;
+    text-align: center;
 }
 
 /***************************重写通用表格样式**********************************************/
