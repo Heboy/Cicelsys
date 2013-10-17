@@ -1,0 +1,88 @@
+/*知识点：
+    1.css手型鼠标：cursor:pointer
+    2.背景图片的重复模式与位置：background-position;background-repeat
+*/
+.clear {
+    clear: both;
+}
+
+ul {
+    list-style: none;
+}
+
+li{
+    cursor: pointer;
+}
+
+#left {
+    width: 150px;
+    float: left;
+    margin-top: 20px;
+}
+
+#first {
+    margin-left: 80px;
+    margin-top: 10px;
+    float: left;
+}
+
+.first-tips{
+    margin-left: 65px;
+    padding-top: 10px;
+    font-size: 25px;
+    width: 100px;
+    font-family: '微软雅黑';
+}
+
+#a_btn {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+    background-position: -4px -5px;
+}
+
+#b_btn {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+    background-position: -4px -66px;
+}
+
+#c_btn {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+    background-position: -4px -127px;
+}
+
+#second {
+    display: none;
+    position: relative;
+    left: 80px;
+    top: 10px;
+}
+
+.second-nav {
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/buttons.png');
+    background-repeat: no-repeat;
+}
+
+.second-tips{
+    position: absolute;
+    margin-left: 65px;
+    padding-top: 10px;
+    font-size: 25px;
+    width: 100px;
+    font-family: '微软雅黑';
+}
+
+.chapter_btn {
+    background-position: -66px -5px;
+}
+
+

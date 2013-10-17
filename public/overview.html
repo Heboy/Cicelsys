@@ -2,42 +2,88 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>概览</title>
-    <link type="text/css" href="style_new/overview.css" rel='stylesheet'>
+    <title>联测促改-校级化学报告</title>
+    
+    <script type="text/javascript" src="script/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="Ext/ext-all.js"></script>
+    <script type="text/javascript" src="script/data.js"></script>
+    <link type="text/css" href="Ext/resources/css/ext-all.css" rel="stylesheet">
+    <link type="text/css" href="style/overview.css" rel="stylesheet">
 </head>
 <body>
 <div id="wrap">
     <div id="header">
-        <h3>欢迎光临</h3>
+        <p>LOGO在这里</p>
     </div>
     <div id="main">
         <div id="left">
             <div id="first">
                 <ul>
-                    <li class="first-nav" id="a_btn"><p class="tips first-tips">数据概览</p></li>
-                    <li class="first-nav" id="b_btn"><p class="tips first-tips">数据对比</p></li>
+                    <li class="first-nav" id="a_btn"><p class="tips first-tips">课程概览</p></li>
+                    <li class="first-nav" id="b_btn"><p class="tips first-tips">榜单</p></li>
                     <li class="first-nav" id="c_btn"><p class="tips first-tips">设置</p></li>
                 </ul>
             </div>
             <div id="second">
                 <ul>
-                    <li class="second-nav chapter_btn"><p class="tips second-tips">章节A</p></li>
-                    <li class="second-nav chapter_btn"><p class="tips second-tips">章节B</p></li>
-                    <li class="second-nav chapter_btn"><p class="tips second-tips">章节C</p></li>
+                    <li class="second-nav chapter_btn"><p class="tips second-tips">管理学原理</p></li>
+                    <li class="second-nav chapter_btn"><p class="tips second-tips">会计学原理</p></li>
+                    <li class="second-nav chapter_btn"><p class="tips second-tips">政府经济学</p></li>
+                    <li class="second-nav chapter_btn"><p class="tips second-tips">经济学导论</p></li>
                 </ul>
             </div>
-            <div class="clear"></div>
         </div>
-        <div id="right">
-            <div id="content">
-                <img src="images/test_pic2.png" style="margin-top: 20px">
+        <!-- end left -->
+
+        <div id="content">
+            <div id="basic">
+                <h3>课程访问情况</h3>
+
+                <div id="table0">
+                    <img src="images/large-loading.gif" class="loading">
+                </div>
+            </div>
+            <ul id="pag">
+                <li class="pag-btn" id="first-btn">课程间对比</li>
+                <li class="pag-btn" id="second-btn">课程访问量趋势图</li>
+                <li class="pag-btn" id="third-btn">访问时间段分布</li>
+                <li class="pag-btn" id="fouth-btn">来访者地域分布</li>
+            </ul>
+            <div id="overview" info="block">
+                <h3 class="title2">访问数据的对比</h3>
+
+                <div id="table1">
+                    <img src="images/large-loading.gif" class="loading">
+                </div>
+            </div>
+            <div id="seg" info="none">
+                <h3 class="title2">趋势图</h3>
+                <div id="table3">
+                    <img src="images/large-loading.gif" class="loading">
+                </div>
+            </div>
+            <div id="knowledge" info="none">
+                <h3 class="title2">时间段分布</h3>
+                <div id="table4">
+                    <img src="images/large-loading.gif" class="loading">
+                </div>
+            </div>
+            <div id="ability" info="none">
+                <h3 class="title2">地域分布</h3>
+                <div id="table5">
+                    <img src="images/large-loading.gif" class="loading">
+                </div>
             </div>
         </div>
+        <!-- end content -->
         <div class="clear"></div>
     </div>
-    <div id="footer"></div>
+    <div id="footer">
+        <p>版权信息在这里</p>
+    </div>
 </div>
 </body>
-<script type="text/javascript" src="script_new/overview.js"></script>
-<script type="text/javascript" src="script_new/Action.js"></script>
+<script type="text/javascript" src="script/Action.js"></script>
+<script type="text/javascript" src="script/nav.js"></script>
+<script type="text/javascript" src="script/overview.js"></script>
 </html>
