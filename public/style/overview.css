@@ -35,7 +35,7 @@ ul{
 }
 #header p {
     padding-top: 28px; 
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: #ffffff;
 }
@@ -61,6 +61,7 @@ ul{
 }
 
 .first-tips{
+    display: block;
     margin-left: 60px;
     padding-top: 15px;
     font-size: 15px;
@@ -107,7 +108,7 @@ ul{
 }
 
 .second-tips{
-    position: relative;
+    display: block;
     margin-left: 60px;
     padding-top: 15px;
     font-size: 15px;
@@ -129,6 +130,7 @@ ul{
 #content{
     width: 1000px;
     float: left;
+    margin-top: 20px;
     margin-left: 200px;
 }
 
@@ -141,6 +143,7 @@ ul{
 }
 
 #overview,#ability,#seg,#knowledge{
+    min-height: 300px;
     border-left: solid 1px lightgray;
     border-right: solid 1px lightgray;
     border-bottom: solid 1px lightgray;
