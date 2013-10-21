@@ -10,8 +10,11 @@ var first = document.getElementById('first');  //获取网页上的元素
 var firstBtns = document.getElementsByClassName('first-nav');
 var firstTips = document.getElementsByClassName('first-tips');
 var second = document.getElementById('second');
+
 var firstSwitch = 'fold'; //unfold fold 开关变量，导航栏有两个状态，展开与折叠
-first.addEventListener('click', clickHandle);
+$(document).ready(function() {
+	$("#first").click(clickHandle);
+});
 
 function clickHandle(e) {
 	//声明三个动画效果
