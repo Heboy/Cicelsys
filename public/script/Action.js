@@ -15,7 +15,7 @@ function Action(element) {
 		throw new Error('Action无参数');
 	}
 	this.timer = null;
-	this.element = element;
+	this.element = element[0];
 	this.getStyle = function (obj, attr) {
 		if (obj.currentStyle) {
 			return obj.currentStyle[attr];
