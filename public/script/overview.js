@@ -19,29 +19,30 @@ var secondNav = $('#second');
 var domEle = {
 	lastPag: pagBtns[0],
 	lastContent: pagArr[0],
-	init: true,
+	init: true
 };
 
-Ext.onReady(function () {
+$(function () {
 	var model = Ext.define('Course', {
 		extend: 'Ext.data.Model',
 		fields: [
 			{name: '课程编号', type: 'string'},
 			{name: '课程名称', type: 'string'},
-			{name: '章节', type: 'object'},
+			{name: '章节'}
 		]
 	});
 	var store = Ext.create('Ext.data.JsonStore', {
 		model: model,
 		proxy: {
 			type: 'ajax',
-			url: '/RemoteData/courses_info.js',
+			url: '/RemoteData/courses_basic_data.js',
 			reader: {
 				type: 'json'
 			}
 		},
 		autoLoad: true
 	});
+	console.log(store);
 	store.on('load', buildMenu);
 
 	function buildMenu(store, records, successful) {
@@ -136,12 +137,12 @@ function pag1() {
 			{
 				type: 'Numeric',
 				position: 'bottom',
-				fields: ['浏览量', '有效学习人数', '今日访问量', '今日有效学习人数'],
+				fields: ['浏览量', '有效学习人数', '今日访问量', '今日有效学习人数']
 			},
 			{
 				type: 'Category',
 				position: 'left',
-				fields: ['课程名称'],
+				fields: ['课程名称']
 			}
 		],
 		series: [
@@ -170,46 +171,53 @@ function pag1() {
 	});
 
 	Ext.create('Ext.chart.Chart', {
-		width:'100%',
-		height:400,
+		width: '100%',
+		height: 400,
 		animate: true,
 		shadow: true,
 		store: store,
 		legend: {
 			position: 'right'
 		},
-		axes: [{
-			title:'百分比%',
-			type: 'Numeric',
-			position: 'left',
-			fields: ['课件利用率'],
-		}, {
-			type: 'Category',
-			position: 'bottom',
-			fields: ['课程名称'],
-		}],
-		series: [{
-			type: 'column',
-			axis: 'left',
-			highlight: true,
-			tips: {
-				trackMouse: true,
-				width: 70,
-				height: 28,
-				renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('课件利用率') + '%');
-				}
+		axes: [
+			{
+				title: '百分比%',
+				type: 'Numeric',
+				position: 'left',
+				fields: ['课件利用率']
 			},
-			xField: '课程名称',
-			yField: '课件利用率'
-		}],
-		renderTo:'table1.1'
+			{
+				type: 'Category',
+				position: 'bottom',
+				fields: ['课程名称']
+			}
+		],
+		series: [
+			{
+				type: 'column',
+				axis: 'left',
+				highlight: true,
+				tips: {
+					trackMouse: true,
+					width: 70,
+					height: 28,
+					renderer: function (storeItem, item) {
+						this.setTitle(storeItem.get('课件利用率') + '%');
+					}
+				},
+				xField: '课程名称',
+				yField: '课件利用率'
+			}
+		],
+		renderTo: 'table1.1'
 	});
 }
 
 function pag2() {
 	var series = [];
-	var fields = [{name:"日期",type:"string"}];
+	var fields = [
+		{name: "日期", type: "string"}
+	];
 	var chartFields = [];
 	for (var i = 0; i < coursesObjArr.length; i++) {
 		fields.push({name: coursesObjArr[i]['课程名称'], type: 'int'});
@@ -265,12 +273,12 @@ function pag2() {
 			{
 				type: 'Category',
 				position: 'bottom',
-				fields: ['日期'],
+				fields: ['日期']
 			},
 			{
 				type: 'Numeric',
 				position: 'left',
-				fields: chartFields,
+				fields: chartFields
 			}
 		],
 		series: series,
@@ -283,7 +291,7 @@ function pag2() {
 	})
 }
 
-function pag3(){
+function pag3() {
 	var model = Ext.define('Course', {
 		extend: 'Ext.data.Model',
 		fields: [
@@ -319,12 +327,12 @@ function pag3(){
 			{
 				type: 'Numeric',
 				position: 'bottom',
-				fields: ['0点-4点', '4点-8点', '8点-12点', '12点-16点', '16点-20点', '20点-24点'],
+				fields: ['0点-4点', '4点-8点', '8点-12点', '12点-16点', '16点-20点', '20点-24点']
 			},
 			{
 				type: 'Category',
 				position: 'left',
-				fields: ['课程名称'],
+				fields: ['课程名称']
 			}
 		],
 		series: [

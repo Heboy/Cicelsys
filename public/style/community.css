@@ -31,10 +31,10 @@ ul{
 
 #header{
     height: 80px;
-    background-color: #8ab8da; 
+    background-color: #8ab8da;
 }
 #header p {
-    padding-top: 28px; 
+    padding-top: 28px;
     font-size: 40px;
     font-weight: bold;
     color: #ffffff;
@@ -133,47 +133,13 @@ ul{
     margin-left: 200px;
 }
 
-#pag{
-    width: 100%;
-    height: 40px;
-    background-color: #3399cc;
-    overflow: hidden;
-    margin-top: 20px;
+#section1{
+
 }
 
-#overview,#ability,#seg,#knowledge{
-    min-height: 300px;
-    border-left: solid 1px lightgray;
-    border-right: solid 1px lightgray;
-    border-bottom: solid 1px lightgray;
-}
 
-#first-btn{
-    background-color: #ffffff;
-    color: #3399cc;
-}
-
-.pag-btn{
-    float: left;
-    margin: 16px 30px 0px 10px;
-    color: #ffffff;
-    font-size: 20px;
-}
-
-.title2{
-    padding: 15px 0 10px 0;
-}
-
-#seg{
-    display: none;
-}
-
-#knowledge{
-    display: none;
-}
-
-#ability{
-    display: none;
+#addcourse_id{
+    width: 100px;
 }
 
 #footer{
