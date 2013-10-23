@@ -107,6 +107,7 @@ $(function () {
 
 	var section3 = $('#section3');
 	var compareBox = new CompareBox_Component_Cicel(section3);
+
 })
 
 /**
@@ -145,16 +146,18 @@ function CompareBox_Component_Cicel(div){
 						box.attr('class','box_hasdata deleteable');
 						title.empty().append('管理学');
 						box.append(title);
+						box.append(closeBtn);
 						box.mouseover(function(){
-							box.append(closeBtn);
-							closeBtn.show();
+							closeBtn.css('display','block');
 						});
 						box.mouseout(function(){
-							closeBtn.hide();
+							closeBtn.css('display','none');
 						});
 						closeBtn.on('click',closeHandle);
 						input.empty();//避免confire冲突
-						new CompareBox_Component_Cicel($('#section3'));
+						if($('.deleteable').length<4){
+							new CompareBox_Component_Cicel($('#section3'));
+						}
 					}
 				},
 				error: function (xhr, error) {

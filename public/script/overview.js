@@ -42,7 +42,6 @@ $(function () {
 		},
 		autoLoad: true
 	});
-	console.log(store);
 	store.on('load', buildMenu);
 
 	function buildMenu(store, records, successful) {
