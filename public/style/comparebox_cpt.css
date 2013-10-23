@@ -27,8 +27,7 @@
 .msg_area{
     display: none;
     position:relative;
-    top:160px;
-    color:#ffffff;
+    top:10px;
     width: 200px;
     text-align: center;
 }
@@ -51,3 +50,14 @@
     background-repeat: no-repeat;
     background-position: -185px -66px;
 }
+
+.compare_btn{
+    display: none;
+    width:40px;
+    height:40px;
+    margin:130px 0px 0px 170px;
+    background-image: url("../images/buttons.png");
+    background-repeat: no-repeat;
+    background-position: -185px -130px;
+}
+

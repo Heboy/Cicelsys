@@ -133,10 +133,9 @@ ul{
     margin-left: 200px;
 }
 
-#section1{
-
+#section3{
+    min-height: 250px;
 }
-
 
 #addcourse_id{
     width: 100px;
