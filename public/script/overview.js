@@ -22,40 +22,18 @@ var domEle = {
 	init: true
 };
 
-$(function () {
-	var model = Ext.define('Course', {
-		extend: 'Ext.data.Model',
-		fields: [
-			{name: '课程编号', type: 'string'},
-			{name: '课程名称', type: 'string'},
-			{name: '章节'}
-		]
-	});
-	var store = Ext.create('Ext.data.JsonStore', {
-		model: model,
-		proxy: {
-			type: 'ajax',
-			url: '/RemoteData/courses_basic_data.js',
-			reader: {
-				type: 'json'
-			}
+Ext.onReady(function () {
+	$.ajax({
+		type:'GET',
+		url:'/RemoteData/getNavData.js',
+		success:function(data){
+			data = $.parseJSON(data);
+			var nav = new Nav_One_Cicel($('#nav'),data,0);
 		},
-		autoLoad: true
-	});
-	store.on('load', buildMenu);
+		error:function(){
 
-	function buildMenu(store, records, successful) {
-		var ul = $('<ul></ul>');
-		if (successful) {
-			for (var i in records) {
-				coursesObjArr.push(records[i].data);
-				var li = $('<li class="second-nav chapter_btn"><a href="#" class="tips second-tips">' + records[i].data['课程名称'] + '</a></li>');
-				ul.append(li);
-			}
-			secondNav.append(ul);
 		}
-	}
-
+	})
 	pag1();
 	$('#pag').on('click', changPag);
 })
@@ -83,6 +61,14 @@ function pag1() {
 		},
 		autoLoad: true
 	});
+
+	store.on('load',function(store, records, successful){
+		if (successful) {
+			for (var i in records) {
+				coursesObjArr.push(records[i].data);
+			}
+		}
+	})
 
 	Ext.create('Ext.grid.Panel', {
 		width: '100%',
@@ -126,6 +112,7 @@ function pag1() {
 	});
 
 	Ext.create('Ext.chart.Chart', {
+		renderTo:'table1',
 		width: '100%',
 		height: 400,
 		store: store,
@@ -165,8 +152,7 @@ function pag1() {
 			afterrender: function () {
 				$(loadings[1]).css('display', 'none');
 			}
-		},
-		renderTo: 'table1'
+		}
 	});
 
 	Ext.create('Ext.chart.Chart', {

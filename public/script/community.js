@@ -1,6 +1,16 @@
 var loadings = $('.loading');
 $(function () {
-//	addBtn = $('.add-btn');
+	$.ajax({
+		type:'GET',
+		url:'/RemoteData/getNavData.js',
+		success:function(data){
+			data = $.parseJSON(data);
+			var nav = new Nav_One_Cicel($('#nav'),data,1);
+		},
+		error:function(){
+
+		}
+	})
 	$.get('/RemoteData/top_list.js', function (data) {
 		var dataObj = $.parseJSON(data);
 		Ext.define('Course', {
@@ -139,7 +149,7 @@ function CompareBox_Component_Cicel(div){
 			input.css('display','none');
 			$.ajax({
 				type: 'GET',
-				url: '/RemoteData/getCourses.js',
+				url: '/RemoteData/getCourse.js',
 				success:function(data){
 					if(data){
 						box.attr('class','box_hasdata deleteable');
