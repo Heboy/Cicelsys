@@ -124,6 +124,24 @@ $(function () {
 	compareBox2.prependBody(s3bg);
 	var compareBox3 = new CompareBox_Component_Cicel();
 	compareBox3.prependBody(s3bg);
+	var boxArr = [compareBox,compareBox1,compareBox2,compareBox3];
+
+	$('.compareBtn').on('click',compareHandle);
+
+	function compareHandle(e){
+		var len = $('.CompareBox-hasdata').length;
+		var searchParas =[];
+		if(len==0){
+			return;
+		}
+		for(var i=0;i<boxArr.length;i++){
+			if(boxArr[i].getCourseID()){
+				searchParas.push(boxArr[i].getCourseID());
+			}
+		}
+
+		window.location.href='http://www.baidu.com?para='+JSON.stringify(searchParas);
+	}
 
 })
 

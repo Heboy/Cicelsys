@@ -16,18 +16,11 @@
     overflow: hidden;
 }
 
-.cancelBtn{
-    background-color: #c30000;
-    position: relative;
-    left: 650px;
-    float: left;
-}
-
 .compareBtn{
     background-color: #1b7ee2;
     position: relative;
     float: left;
-    left: 650px;
+    left: 800px;
 }
 
 #addcourse_id{
