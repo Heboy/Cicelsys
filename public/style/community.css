@@ -1,6 +1,3 @@
-/**********************************************************************************
-***************************** main ************************************************
-**********************************************************************************/
 #main{
     width: 100%;
 }
@@ -13,8 +10,24 @@
     margin-left: 200px;
 }
 
-#section3{
-    min-height: 250px;
+.s3bg{
+    background-color: silver;
+    border-radius: 20px 20px;
+    overflow: hidden;
+}
+
+.cancelBtn{
+    background-color: #c30000;
+    position: relative;
+    left: 650px;
+    float: left;
+}
+
+.compareBtn{
+    background-color: #1b7ee2;
+    position: relative;
+    float: left;
+    left: 650px;
 }
 
 #addcourse_id{

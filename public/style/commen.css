@@ -20,8 +20,22 @@ ul{
     cursor: pointer;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 .clear{
     clear: both;
+}
+
+.btn-type1{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #ffffff;
+    margin: 0 10px 10px 0;
+    text-align: center;
 }
 
 #wrap{
@@ -52,13 +66,6 @@ ul{
     width: 190px;
     height: 100%;
     overflow: hidden;
-}
-/******************** content ********************/
-#content{
-    width: 1000px;
-    float: left;
-    margin-top: 20px;
-    margin-left: 250px;
 }
 
 /******************** footer ********************/
