@@ -3,6 +3,7 @@ $(function () {
 	$.ajax({
 		type:'GET',
 		url:'/RemoteData/getNavData.js',
+		dataType:'json',
 		success:function(data){
 			data = $.parseJSON(data);
 			var nav = new Nav_One_Cicel($('#nav'),data,1);
