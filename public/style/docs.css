@@ -110,6 +110,19 @@ a {
     text-decoration: none;
     color: #06283d;
 }
+
+/*border样式*/
+.container .bs-docs-jumbotron{
+    background-color: #8ab8da;
+    border: 1px solid #c0c0c0;
+    border-radius: 0;
+    border-top: 0px;
+}
+
+/*min-height*/
+.min-height{
+    min-height: 400px;
+}
 /*
  * Main navigation
  *
@@ -118,7 +131,7 @@ a {
 
 .bs-docs-nav {
   text-shadow: 0 -1px 0 rgba(0,0,0,.15);
-  background-color: #8ab8da;
+  background-color: #463265;
   border-color: #c5eaff;
   box-shadow: 0 1px 0 rgba(255,255,255,.1);
 }
@@ -129,7 +142,7 @@ a {
   color: #fff;
 }
 .bs-docs-nav .navbar-nav > li > a {
-  color: #ffffff;
+  color: #8ab8da;
 }
 .bs-docs-nav .navbar-nav > li > a:hover {
   color: #000000;
@@ -137,7 +150,7 @@ a {
 .bs-docs-nav .navbar-nav > .active > a,
 .bs-docs-nav .navbar-nav > .active > a:hover {
   color: #000000;
-  background-color: #eeeeee;
+  background-color: #8ab8da;
 }
 .bs-docs-nav .navbar-toggle {
   border-color: #563d7c;
@@ -540,7 +553,7 @@ a {
   /* Widen the fixed sidebar */
   .bs-sidebar.affix,
   .bs-sidebar.affix-bottom {
-    width: 213px;
+    width: 140px;
   }
   .bs-sidebar.affix {
     position: fixed; /* Undo the static from mobile first approach */
@@ -559,7 +572,7 @@ a {
   /* Widen the fixed sidebar again */
   .bs-sidebar.affix-bottom,
   .bs-sidebar.affix {
-    width: 263px;
+    width: 165px;
   }
 }
 
@@ -573,6 +586,9 @@ a {
 /* Space things out */
 .bs-docs-section + .bs-docs-section {
   padding-top: 40px;
+}
+.bs-docs-section{
+    padding-top: 20px;
 }
 
 /* Janky fix for preventing navbar from overlapping */

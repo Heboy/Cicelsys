@@ -10,63 +10,125 @@
     <link href="style/docs.css" rel="stylesheet">
     <link href="font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body>
+<body data-spy="scroll" data-target=".bs-sidebar">
 <div id="wrap">
     <div id="header">
-        <div class="container navbar-default  bs-docs-nav">
+        <nav class="container navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <img src="images/logo.png" style="margin: 10px 10px 0 0">
             </div>
-            <div class="navbar-collapse collapse">
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">首页</a></li>
-                    <li class="active"><a href="#">数据概览</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div id="content" class="container">
-        <div class="row">
-            <div data-spy="affix" data-offset-top="200" class="bs-sidebar hidden-print affix col-md-2"
-                 role="complementary">
-                <ul class="nav bs-sidenav">
-                    <li class="active">
-                        <a href="#">课程间对比</a>
-                        <ul class="nav">
-                            <li class><a href="#">原始数据</a></li>
+                    <li class="active"><a href="#">首页</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">统计结果<b class="caret"></b></a>
+                        <ul class="navbar-nav dropdown-menu">
+                            <li><a href="#">管理学原理</a></li>
+                            <li><a href="#">会计学原理</a></li>
+                            <li><a href="#">政府经济学</a></li>
+                            <li><a href="#">经济学导论</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">课程访问量趋势图</a></li>
-                    <li><a href="#">访问时间段分布</a></li>
-                    <li><a href="#">来访者地域分布</a></li>
+                    <li><a href="#">关于我们</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">登陆</a></li>
+                    <li><a href="#">注册</a></li>
                 </ul>
             </div>
-            <div class="col-md-10">
-                <div class="row" id="overview">
-                    <h1 id="section1">课程访问情况</h1>
+        </nav>
+        <!-- /.navbar-collapse -->
+    </div>
+    <div id="content" class="bs-docs-container container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="bs-sidebar hidden-print affix" role="complementary">
+                    <!--sidenav所指的div需要有一个较大的最小高度才能在点击时在导航栏上准确显示当前位置-->
+                    <ul class="nav bs-sidenav">
+                        <li class="active">
+                            <a href="#cicel1">概览</a>
+                        </li>
+                        <li>
+                            <a href="#cicel2">概览-柱状图</a>
+                        </li>
+                        <li>
+                            <a href="#cicel3">课件利用率</a>
+                        </li>
+                        <li>
+                            <a href="#cicel4">访问趋势</a>
+                        </li>
+                        <li>
+                            <a href="#cicel5">访问时段分布</a>
+                        </li>
+                        <li>
+                            <a href="#cicel6">来访者地域分布</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4 class="modal-title col-sm-12">课程概览</h4>
-
-                        <div id="t1"></div>
-                    </div>
-                    <div class="col-md-6" style="border-left: solid 1px #808080">
-                        <h4 class="modal-title col-sm-12">课件利用率</h4>
-
-                        <div id="t2"></div>
-                    </div>
+            </div>
+            <div class="col-md-10"  role="main">
+                <div class="bs-docs-cicel min-height">
+                    <h2 id="cicel1">
+                        概览
+                    </h2>
+                    <hr>
+                    <div id="t0"></div>
+                </div>
+                <div class="bs-docs-cicel min-height">
+                    <h2 id="cicel2">
+                        概览-柱状图
+                    </h2>
+                    <hr>
+                    <div id="t1"></div>
+                </div>
+                <div class="bs-docs-cicel min-height">
+                    <h2 id="cicel3">
+                        课件利用率
+                    </h2>
+                    <hr>
+                    <div id="t2"></div>
+                </div>
+                <div class="bs-docs-cicel min-height">
+                    <h2 id="cicel4">
+                        访问趋势
+                    </h2>
+                    <hr>
+                    <div id="trend"></div>
+                </div>
+                <div class="bs-docs-cicel min-height">
+                    <h2 id="cicel5">
+                        访问时段分布
+                    </h2>
+                    <hr>
+                    <div id="time"></div>
+                </div>
+                <div class="bs-docs-cicel min-height">
+                    <h2 id="cicel6">
+                        来访者地域分布
+                    </h2>
+                    <hr>
+                    <div id="location"></div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="container bs-footer">
+        <h5 class="margin-20-0">CICEL版权所有</h5>
+    </div>
 </div>
-<div class="container bs-footer">
-    <h5 class="margin-20-0">CICEL版权所有</h5>
-</div>
-<script src="script/jquery-1.8.0.min.js"></script>
+<script src="script/jquery-1.10.2.js"></script>
 <script src="Bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="Ext/ext-all-debug.js"></script>
-<script type="text/javascript" src="script/overview.js"></script>
+<script src="Ext/ext-all-debug.js"></script>
+<script src="script/overview.js"></script>
 </body>
 </html>
