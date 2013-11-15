@@ -123,6 +123,31 @@ a {
 .min-height{
     min-height: 400px;
 }
+
+/*自定义控件——排名*/
+.rate{
+    width: 100px;
+}
+.rate .rate-title{
+    font-size: 40px;
+    font-weight: bold;
+    color: #096fa2;
+}
+.rate .rate-msg{
+    font-size: 18px;
+    font-weight: bold;
+    color: #aeaeae;
+    margin-top: -15px;
+}
+/*自定义控件——说明*/
+.tips-box{
+    /*position: relative;*/
+    /*height: 40px;*/
+}
+.tips-box .tips{
+    /*position: absolute;*/
+    /*margin: 10px 20px;*/
+}
 /*
  * Main navigation
  *

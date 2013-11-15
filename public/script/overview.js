@@ -2,6 +2,21 @@
  * Created by Heboy on 13-11-11.
  */
 Ext.onReady(function () {
+//	注册timepicker
+	(function(){
+		$('.form_date').datetimepicker({
+			language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});
+	})();
+
+	var basicRecords = $.parseJSON($.trim($('basic-data').html()));
 	var model = Ext.define('Course', {
 		extend: 'Ext.data.Model',
 		fields: [
@@ -15,45 +30,10 @@ Ext.onReady(function () {
 	})
 	var store = Ext.create('Ext.data.JsonStore', {
 		model: model,
-		proxy: {
-			type: 'ajax',
-			url: '/Cicelsys/RemoteData/courses_basic_data.js',
-			reader: {
-				type: 'json'
-			}
-		},
-		autoLoad: true
+		data:basicRecords
 	});
 
-//		生成概览图表
-	store.on('load', function (store, records, successful) {
-		var coursesObjArr = [];
-		var table = $('<table class="table table-striped table-bordered"></table>');
-		for (var j in records) {
-			coursesObjArr.push(records[j].data);
-			if(!title){
-				var title = $('<tr></tr>');
-				for(var i in records[j].data){
-					var td = $('<td></td>');
-					td.html(i);
-					title.append(td);
-				}
-				table.append(title);
-			}
-			var tr = $('<tr></tr>');
-			for(var i in records[j].data){
-				var td = $('<td></td>');
-				td.html(records[j].data[i]);
-				tr.append(td);
-			}
-			table.append(tr);
-		}
-		$('#t0').append(table);
-		pag2(coursesObjArr);
-	})
-
-	pag3();
-
+//	概况-柱状图
 	Ext.create('Ext.chart.Chart', {
 		renderTo: 't1',
 		width: '100%',
@@ -93,6 +73,7 @@ Ext.onReady(function () {
 		]
 	});
 
+//	课件利用率
 	Ext.create('Ext.chart.Chart', {
 		width: '100%',
 		height: 400,
@@ -135,6 +116,16 @@ Ext.onReady(function () {
 		renderTo: 't2'
 	});
 
+	(function(){
+		var coursesObjArr = [];
+		//		计算趋势图的y轴名称
+		for (var j in basicRecords) {
+			coursesObjArr.push(basicRecords[j]["课程名称"]);
+		}
+		console.log(coursesObjArr);
+		pag2(coursesObjArr);
+		pag3();
+	})();
 
 
 	function pag2(coursesObjArr) {
@@ -144,8 +135,8 @@ Ext.onReady(function () {
 		];
 		var chartFields = [];
 		for (var i = 0; i < coursesObjArr.length; i++) {
-			fields.push({name: coursesObjArr[i]['课程名称'], type: 'int'});
-			chartFields.push(coursesObjArr[i]['课程名称']);
+			fields.push({name: coursesObjArr[i], type: 'int'});
+			chartFields.push(coursesObjArr[i]);
 			series.push({
 				type: 'line',
 				axis: 'left',
@@ -160,7 +151,7 @@ Ext.onReady(function () {
 				},
 				smooth: true,
 				xField: '日期',
-				yField: coursesObjArr[i]['课程名称'],
+				yField: coursesObjArr[i],
 				markerConfig: {
 					type: 'cross',
 					size: 4,

@@ -1,133 +1,247 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CICEL</title>
+    <title>概览</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="Ext/resources/css/ext-all.css" rel="stylesheet">
     <link href="style/docs.css" rel="stylesheet">
+    <link href="style/bootstrap-datetimepicker.css" rel="stylesheet">
     <link href="font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body data-spy="scroll" data-target=".bs-sidebar">
 <div id="wrap">
-    <div id="header">
-        <nav class="container navbar navbar-default" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img src="images/logo.png" style="margin: 10px 10px 0 0">
-            </div>
+<div id="header">
+    <nav class="container navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="images/logo.png" style="margin: 10px 10px 0 0">
+        </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">首页</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">统计结果<b class="caret"></b></a>
-                        <ul class="navbar-nav dropdown-menu">
-                            <li><a href="#">管理学原理</a></li>
-                            <li><a href="#">会计学原理</a></li>
-                            <li><a href="#">政府经济学</a></li>
-                            <li><a href="#">经济学导论</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">关于我们</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">登陆</a></li>
-                    <li><a href="#">注册</a></li>
-                </ul>
-            </div>
-        </nav>
-        <!-- /.navbar-collapse -->
-    </div>
-    <div id="content" class="bs-docs-container container">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="bs-sidebar hidden-print affix" role="complementary">
-                    <!--sidenav所指的div需要有一个较大的最小高度才能在点击时在导航栏上准确显示当前位置-->
-                    <ul class="nav bs-sidenav">
-                        <li class="active">
-                            <a href="#cicel1">概览</a>
-                        </li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">统计结果<b class="caret"></b></a>
+                    <ul class="navbar-nav dropdown-menu">
+                        <li><a href="#">管理学原理</a></li>
+                        <li><a href="#">会计学原理</a></li>
+                        <li><a href="#">政府经济学</a></li>
+                        <li><a href="#">经济学导论</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">登陆</a></li>
+                <li><a href="#">注册</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- /.navbar-collapse -->
+</div>
+<div id="content" class="bs-docs-container container">
+    <div class="row">
+        <div class="col-md-2">
+
+            <div class="bs-sidebar hidden-print affix" role="complementary"
+            ">
+            <!--sidenav所指的div需要有一个较大的最小高度才能在点击时在导航栏上准确显示当前位置-->
+            <ul class="nav bs-sidenav">
+                <li class="active">
+                    <a href="#cicel1">概览</a>
+                    <ul class="nav">
                         <li>
                             <a href="#cicel2">概览-柱状图</a>
                         </li>
                         <li>
                             <a href="#cicel3">课件利用率</a>
                         </li>
-                        <li>
-                            <a href="#cicel4">访问趋势</a>
-                        </li>
-                        <li>
-                            <a href="#cicel5">访问时段分布</a>
-                        </li>
-                        <li>
-                            <a href="#cicel6">来访者地域分布</a>
-                        </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="#cicel4">访问趋势</a>
+                </li>
+                <li>
+                    <a href="#cicel5">访问时段分布</a>
+                </li>
+                <li>
+                    <a href="#cicel6">来访者地域分布</a>
+                </li>
+            </ul>
+            <hr>
+            <!--时间搜索框-->
+            <label>按时间搜索：</label>
+            <div class="form-group">
+                <div class="input-group date form_date" data-date="" data-date-format="MM dd">
+                    <input class="form-control" size="16" type="text" value="" readonly placeholder="起始时间">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+
+                <div class="input-group date form_date" data-date="" data-date-format="MM dd">
+                    <input class="form-control" size="16" type="text" value="" readonly placeholder="截止时间">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%">搜索</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-10" role="main">
+
+        <div class="bs-docs-cicel min-height">
+            <h2 id="cicel1">
+                概览
+            </h2>
+            <hr>
+
+
+            <div id="t0">
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>课程名称</td>
+                        <td>浏览量</td>
+                        <td>有效学习人数</td>
+                        <td>今日访问量</td>
+                        <td>今日有效学习人数</td>
+                        <td>课件利用率</td>
+                    </tr>
+                    <tr>
+                        <td>管理学原理</td>
+                        <td>466</td>
+                        <td>102</td>
+                        <td>5</td>
+                        <td>0</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>会计学原理</td>
+                        <td>302</td>
+                        <td>50</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>政府经济学</td>
+                        <td>366</td>
+                        <td>45</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>经济学导论</td>
+                        <td>599</td>
+                        <td>354</td>
+                        <td>22</td>
+                        <td>5</td>
+                        <td>62</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">说明</div>
+                <div class="panel-body">
+                    Panel content
                 </div>
             </div>
-            <div class="col-md-10"  role="main">
-                <div class="bs-docs-cicel min-height">
-                    <h2 id="cicel1">
-                        概览
-                    </h2>
-                    <hr>
-                    <div id="t0"></div>
+
+            <h3 id="cicel2">
+                概览-柱状图
+            </h3>
+
+            <div id="t1"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">说明</div>
+                <div class="panel-body">
+                    Panel content
                 </div>
-                <div class="bs-docs-cicel min-height">
-                    <h2 id="cicel2">
-                        概览-柱状图
-                    </h2>
-                    <hr>
-                    <div id="t1"></div>
+            </div>
+            <h3 id="cicel3">
+                课件利用率
+            </h3>
+
+            <div id="t2"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">说明</div>
+                <div class="panel-body">
+                    Panel content
                 </div>
-                <div class="bs-docs-cicel min-height">
-                    <h2 id="cicel3">
-                        课件利用率
-                    </h2>
-                    <hr>
-                    <div id="t2"></div>
+            </div>
+        </div>
+        <div class="bs-docs-cicel min-height">
+
+            <div class="bs-docs-cicel min-height">
+                <h2 id="cicel4">
+                    访问趋势
+                </h2>
+                <hr>
+                <div id="trend"></div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">说明</div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
                 </div>
-                <div class="bs-docs-cicel min-height">
-                    <h2 id="cicel4">
-                        访问趋势
-                    </h2>
-                    <hr>
-                    <div id="trend"></div>
+            </div>
+            <div class="bs-docs-cicel min-height">
+                <h2 id="cicel5">
+                    访问时段分布
+                </h2>
+                <hr>
+
+                <div id="time"></div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">说明</div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
                 </div>
-                <div class="bs-docs-cicel min-height">
-                    <h2 id="cicel5">
-                        访问时段分布
-                    </h2>
-                    <hr>
-                    <div id="time"></div>
-                </div>
-                <div class="bs-docs-cicel min-height">
-                    <h2 id="cicel6">
-                        来访者地域分布
-                    </h2>
-                    <hr>
-                    <div id="location"></div>
+            </div>
+            <div class="bs-docs-cicel min-height">
+                <h2 id="cicel6">
+                    来访者地域分布
+                </h2>
+                <hr>
+
+                <div id="location"></div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">说明</div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container bs-footer">
-        <h5 class="margin-20-0">CICEL版权所有</h5>
-    </div>
 </div>
+</div>
+<div class="container bs-footer">
+    <h5 class="margin-20-0">CICEL版权所有</h5>
+</div>
+</div>
+<data class="data" style="display: none">
+    <basic-data>
+        [{"课程名称":"管理学原理","浏览量":466,"有效学习人数":102,"今日访问量":5,"今日有效学习人数":0,"课件利用率":25},{"课程名称":"会计学原理","浏览量":302,"有效学习人数":50,"今日访问量":0,"今日有效学习人数":0,"课件利用率":15},{"课程名称":"政府经济学","浏览量":366,"有效学习人数":45,"今日访问量":4,"今日有效学习人数":1,"课件利用率":9},{"课程名称":"经济学导论","浏览量":599,"有效学习人数":354,"今日访问量":22,"今日有效学习人数":5,"课件利用率":62}]
+    </basic-data>
+</data>
 <script src="script/jquery-1.10.2.js"></script>
 <script src="Bootstrap/js/bootstrap.js"></script>
+<script src="script/bootstrap-datetimepicker.js"></script>
+<script src="script/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="Ext/ext-all-debug.js"></script>
 <script src="script/overview.js"></script>
 </body>
