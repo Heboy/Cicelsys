@@ -2,7 +2,7 @@
  * Created by Heboy on 13-11-11.
  */
 Ext.onReady(function () {
-	var basicRecords = $.parseJSON($.trim($('basic-data').html()));
+	var basicRecords = $.parseJSON($.trim($('#basic-data').val()));
 	var model = Ext.define('Course', {
 		extend: 'Ext.data.Model',
 		fields: [
