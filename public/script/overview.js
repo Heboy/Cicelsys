@@ -2,20 +2,6 @@
  * Created by Heboy on 13-11-11.
  */
 Ext.onReady(function () {
-//	注册timepicker
-	(function(){
-		$('.form_date').datetimepicker({
-			language:  'fr',
-			weekStart: 1,
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-		});
-	})();
-
 	var basicRecords = $.parseJSON($.trim($('basic-data').html()));
 	var model = Ext.define('Course', {
 		extend: 'Ext.data.Model',
@@ -122,9 +108,33 @@ Ext.onReady(function () {
 		for (var j in basicRecords) {
 			coursesObjArr.push(basicRecords[j]["课程名称"]);
 		}
-		console.log(coursesObjArr);
 		pag2(coursesObjArr);
 		pag3();
+
+//注册timepicker
+		$('.form_date').datetimepicker({
+			format: 'yyyy-mm-dd',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});
+		var search = $('#searchByTime');
+		search.on('click',function(){
+			var start = new Date($('#startTime').val()).getTime();
+			var end = new Date($('#endTime').val()).getTime();
+			if(!start||!end||start>=end||end>new Date().getTime()){
+				$('.tips-box').css('display','block');
+			}
+			else{
+//				跳转，服务器需验证输入
+				$('.tips-box').css('display','none');
+				window.location.href = window.location.href+'?start='+start+'&end='+end;
+			}
+		})
 	})();
 
 

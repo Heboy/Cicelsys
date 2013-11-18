@@ -141,12 +141,11 @@ a {
 }
 /*自定义控件——说明*/
 .tips-box{
-    /*position: relative;*/
-    /*height: 40px;*/
+    position: relative;
+    height: 40px;
 }
-.tips-box .tips{
-    /*position: absolute;*/
-    /*margin: 10px 20px;*/
+.tips-box .danger{
+    color: red;
 }
 /*
  * Main navigation

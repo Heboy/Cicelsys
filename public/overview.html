@@ -82,17 +82,29 @@
             <hr>
             <!--时间搜索框-->
             <label>按时间搜索：</label>
+
             <div class="form-group">
                 <div class="input-group date form_date" data-date="" data-date-format="MM dd">
-                    <input class="form-control" size="16" type="text" value="" readonly placeholder="起始时间">
+                    <input id="startTime" class="form-control" size="16" type="text" value="" readonly
+                           placeholder="起始时间">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
 
                 <div class="input-group date form_date" data-date="" data-date-format="MM dd">
-                    <input class="form-control" size="16" type="text" value="" readonly placeholder="截止时间">
+                    <input id="endTime" class="form-control" size="16" type="text" value="" readonly
+                           placeholder="截止时间">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
-                <button type="button" class="btn btn-primary" style="width: 100%">搜索</button>
+                <div>
+                    <button id="searchByTime" type="button" class="btn btn-primary" style="width: 100%">搜索</button>
+                    <div class="popover fade bottom in tips-box">
+                        <div class="arrow"></div>
+                        <h3 class="popover-title" style="display: none;"></h3>
+
+                        <div class="popover-content danger">日期输入有误</div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -241,7 +253,6 @@
 <script src="script/jquery-1.10.2.js"></script>
 <script src="Bootstrap/js/bootstrap.js"></script>
 <script src="script/bootstrap-datetimepicker.js"></script>
-<script src="script/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="Ext/ext-all-debug.js"></script>
 <script src="script/overview.js"></script>
 </body>
