@@ -124,6 +124,7 @@ DocProject/Help/html
 # Click-Once directory
 .idea/
 public/Ext/
+node_modules/
 
 # Publish Web Output
 *.Publish.xml

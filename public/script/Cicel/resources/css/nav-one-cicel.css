@@ -1,0 +1,41 @@
+.nav-one-c {
+    position: absolute;
+    left: 60px;
+}
+
+.nav-one-firstnav {
+    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+    background-image: url('../../ons.png');
+    background-repeat: no-repeat;
+}
+
+.nav-one-secondnav{
+    display: none;
+    margin-left: 60px;
+    position: relative;
+    top: -15px;
+}
+
+.subnav{
+    width: 60px;
+    height: 60px;
+    background-image: url('../../ons.png');
+    background-repeat: no-repeat;
+}
+
+.nav-one-title{
+    position: relative;
+    display: block;
+    top: 60px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.nav-one-subtitle{
+    position: relative;
+    left: 60px;
+    top: 16px;
+    font-size: 15px;
+}
