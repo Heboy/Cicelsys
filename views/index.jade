@@ -1,72 +1,52 @@
 extends layout
 
 block head
-	meta(name="viewport",content="width=device-width,initial-scale=1.0")
-	meta(http-equiv="X-UA-COMPATIBLE",content="IE=edge")
-	link(href="script/Bootstrap/css/bootstrap.css",rel="stylesheet",media="screen")
-	link(href="script/font-awesome-4.0.3/css/font-awesome.min.css",rel="stylesheet")
-	link(href="style/docs.css",rel="stylesheet")
-
+	head
+		title=title
+		meta(charset="utf-8")
+		meta(name="viewport",content="width=device-width,initial-scale=1.0")
+		meta(http-equiv="X-UA-COMPATIBLE",content="IE=edge")
+		link(href="script/Bootstrap/css/bootstrap.css",rel="stylesheet",media="screen")
+		link(href="script/font-awesome-4.0.3/css/font-awesome.min.css",rel="stylesheet")
+		link(href="style/docs.css",rel="stylesheet")
+block body
+	body
 block content
-	div#wrap
-		div#header
-			nav(class="container navbar navbar-default",role="navigation")
-				div(class="navbar-header")
-					button(type="button",class="navbar-toggle",data-toggle="collapse",data-target="#bs-example-navbar-collapse-1")
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					img(src="images/logo.png",style="margin: 10px 10px 0 0")
-				div#bs-example-navbar-collapse-1(class="collapse navbar-collapse")
-					ul(class="nav navbar-nav")
-						li(class="active")
-							a(href="#") 首页
-						li
-							a(href="#") 入门
-						li
-							a(href="#") 关于我们
-					ul(class="nav navbar-nav navbar-right")
-						li(class="active")
-							a(href="#") 登陆
-						li(class="active")
-							a(href="#") 注册
-
-			div#content(class="continer")
-				div(class="bs-docs-jumbotron jumbotron row")
-					div(class="col-md-8")
-						h1 网析
-						h2
-							small(style="color: #ffffff") 专业化的在线教学资源统计与分析平台
-					div(class="col-md-4")
-						form#lgn(class="form-horizontal",role="form",action="#",method="post")
-							div.row
-								label(class="col-md-2 bs-margin-0 bs-padding-0") 账号
-								div(class="col-md-10")
-									input(type="text",class="form-control",placeholder="账号",name="username",required)
-							div.row
-								label(class="col-md-2 bs-margin-0 bs-padding-0") 密码
-								div(class="col-md-10")
-									input(type="password",class="form-control",placeholder="密码",name="password",required)
-							div.row
-								div(class="col-sm-12 text-right",style="font-size: 13px")
-									a#regBtn(class="medium text-right") 去注册
-										i(class="fa fa-arrow-circle-o-right")
-
-						form#reg(class="form-horizontal",role="form",action="#",method="post",style="display: none")
-							div.row
-								label(class="col-md-2 bs-margin-0 bs-padding-0") 账号
-								div(class="col-md-10")
-									input(type="text",class="form-control",placeholder="账号",name="username",required)
-							div.row
-								label(class="col-md-2 bs-margin-0 bs-padding-0") 密码
-								div(class="col-md-10")
-									input(type="password",class="form-control",placeholder="密码",name="password",required)
-							div.row
-								div(class="col-sm-12 text-right",style="font-size: 13px")
-									a#regBtn(class="medium text-right") 去登陆
-										i(class="fa fa-arrow-circle-o-right")
-
+	div#content(class="container")
+		div(class="bs-docs-jumbotron jumbotron row")
+			div(class="col-md-8")
+				h1 网析
+				h2
+					small(style="color: #ffffff") 专业化的在线教学资源统计与分析平台
+			div(class="col-md-4")
+				form#lgn(class="form-horizontal",role="form",action="#",method="post")
+					div.row
+						label(class="col-md-2 bs-margin-0 bs-padding-0") 账号
+						div(class="col-md-10")
+							input(type="text",class="form-control",placeholder="账号",name="username",required)
+					div.row
+						label(class="col-md-2 bs-margin-0 bs-padding-0") 密码
+						div(class="col-md-10")
+							input(type="password",class="form-control",placeholder="密码",name="password",required)
+					div.row
+						div(class="col-sm-12 text-right",style="font-size: 13px")
+							a#regBtn(class="medium text-right") 去注册
+								i(class="fa fa-arrow-circle-o-right")
+					button(class="btn btn-lg btn-primary btn-block",type="submit") 登陆
+				form#reg(class="form-horizontal",role="form",action="#",method="post",style="display: none")
+					div.row
+						label(class="col-md-2 bs-margin-0 bs-padding-0") 账号
+						div(class="col-md-10")
+							input(type="text",class="form-control",placeholder="账号",name="username",required)
+					div.row
+						label(class="col-md-2 bs-margin-0 bs-padding-0") 密码
+						div(class="col-md-10")
+							input(type="password",class="form-control",placeholder="密码",name="password",required)
+					div.row
+						div(class="col-sm-12 text-right",style="font-size: 13px")
+							a#lgnBtn(class="medium text-right") 去登陆
+								i(class="fa fa-arrow-circle-o-right")
+					button(class="btn btn-lg btn-success btn-block",type="submit") 注册
 		div(class="container")
 			div(class="row")
 				h2(class="page-header") 为您提供:
@@ -102,8 +82,9 @@ block content
 							i(class="fa fa-check-square-o fa-5x font-normal")
 						h3(class="text-center")
 							a(href="#") 3.查看其他人的数据
-		div(class="container bs-footer")
-			h5(class="margin-20-0") CICEL版权所有
+block footer
+	div#footer(class="container bs-footer")
+		h5(class="margin-20-0") CICEL版权所有
 	script(src="script/jquery-1.10.2.js")
 	script(src="script/Bootstrap/js/bootstrap.js")
 	script(src="script/index.js")

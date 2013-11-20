@@ -1,0 +1,23 @@
+extends layout
+block head
+	title=title
+	meta(charset="utf-8")
+	meta(name="viewport",content="width=device-width,initial-scale=1.0")
+	meta(http-equiv="X-UA-COMPATIBLE",content="IE=edge")
+	link(href="script/Bootstrap/css/bootstrap.css",rel="stylesheet",media="screen")
+	link(href="script/font-awesome-4.0.3/css/font-awesome.min.css",rel="stylesheet")
+	link(href="script/Ext/resources/css/ext-all.css",rel="stylesheet",media="screen")
+	link(href="style/bootstrap-datetimepicker.css",rel="stylesheet",media="screen")
+	link(href="style/docs.css",rel="stylesheet")
+block body
+	body(data-spy="scroll" data-target=".bs-sidebar")
+block content
+	div#content(class="bs-docs-container container") hehe
+block footer
+	div#footer(class="container bs-footer")
+		h5(class="margin-20-0") CICEL版权所有
+	script(src="script/jquery-1.10.2.js")
+	script(src="script/Bootstrap/js/bootstrap.js")
+	script(src="script/bootstrap-datetimepicker.js")
+	script(src="script/Ext/ext-all-debug.js")
+	script(src="script/overview.js")

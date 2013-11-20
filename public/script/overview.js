@@ -16,7 +16,7 @@ Ext.onReady(function () {
 	})
 	var store = Ext.create('Ext.data.JsonStore', {
 		model: model,
-		data:basicRecords
+		data: basicRecords
 	});
 
 //	概况-柱状图
@@ -102,20 +102,20 @@ Ext.onReady(function () {
 		renderTo: 't2'
 	});
 
-	(function(){
+	(function () {
 		var coursesObjArr = [];
 		//		计算趋势图的y轴名称
 		for (var j in basicRecords) {
 			coursesObjArr.push(basicRecords[j]["课程名称"]);
 		}
-		pag2(coursesObjArr);
+		pag2();
 		pag3();
 
 //注册timepicker
 		$('.form_date').datetimepicker({
 			format: 'yyyy-mm-dd',
 			weekStart: 1,
-			todayBtn:  1,
+			todayBtn: 1,
 			autoclose: 1,
 			todayHighlight: 1,
 			startView: 2,
@@ -123,91 +123,92 @@ Ext.onReady(function () {
 			forceParse: 0
 		});
 		var search = $('#searchByTime');
-		search.on('click',function(){
+		search.on('click', function () {
 			var start = new Date($('#startTime').val()).getTime();
 			var end = new Date($('#endTime').val()).getTime();
-			if(!start||!end||start>=end||end>new Date().getTime()){
-				$('.tips-box').css('display','block');
+			if (!start || !end || start >= end || end > new Date().getTime()) {
+				$('.tips-box').css('display', 'block');
 			}
-			else{
+			else {
 //				跳转，服务器需验证输入
-				$('.tips-box').css('display','none');
-				window.location.href = window.location.href+'?start='+start+'&end='+end;
+				$('.tips-box').css('display', 'none');
+				window.location.href = window.location.href + '?start=' + start + '&end=' + end;
 			}
 		})
 	})();
 
 
-	function pag2(coursesObjArr) {
+	function pag2() {
+		var chartFields = [];
 		var series = [];
 		var fields = [
 			{name: "日期", type: "string"}
 		];
-		var chartFields = [];
-		for (var i = 0; i < coursesObjArr.length; i++) {
-			fields.push({name: coursesObjArr[i], type: 'int'});
-			chartFields.push(coursesObjArr[i]);
-			series.push({
-				type: 'line',
-				axis: 'left',
-				highlight: true,
-				tips: {
-					trackMouse: true,
-					width: 25,
-					height: 15,
-					renderer: function (storeItem, item) {
-						this.setTitle(String(item.value[1]) + '人');
+
+		$.get("/Cicelsys/RemoteData/courses_data_trend.js", function (data) {
+			data = $.parseJSON(data);
+			if (data.length > 0) {
+				for (var i in data[0]) {
+					if (i == '日期') {
+						continue;
 					}
-				},
-				smooth: true,
-				xField: '日期',
-				yField: coursesObjArr[i],
-				markerConfig: {
-					type: 'cross',
-					size: 4,
-					radius: 4,
-					'stroke-width': 0
+					chartFields.push(i);
+					fields.push({name:i,type:"int"});
+					series.push({
+						type: 'line',
+						axis: 'left',
+						highlight: true,
+						tips: {
+							trackMouse: true,
+							width: 25,
+							height: 25,
+							renderer: function (storeItem, item) {
+								this.setTitle(String(item.value[1]) + '人');
+							}
+						},
+						smooth: true,
+						xField: '日期',
+						yField: i,
+						markerConfig: {
+							type: 'cross',
+							size: 4,
+							radius: 4,
+							'stroke-width': 0
+						}
+					})
 				}
-			})
-		}
-		var model = Ext.define('Course', {
-			extend: 'Ext.data.Model',
-			fields: fields
-		});
+				var model = Ext.define('Course', {
+					extend: 'Ext.data.Model',
+					fields: fields
+				});
+				var store = Ext.create('Ext.data.JsonStore', {
+					model: model,
+					data: data
+				});
 
-		var store = Ext.create('Ext.data.JsonStore', {
-			model: model,
-			proxy: {
-				type: 'ajax',
-				url: '/Cicelsys/RemoteData/courses_data_trend.js',
-				reader: {
-					type: 'json'
-				}
-			},
-			autoLoad: true
-		});
-
-		Ext.create('Ext.chart.Chart', {
-			width: '100%',
-			height: 400,
-			store: store,
-			legend: {
-				position: 'right'
-			},
-			axes: [
-				{
-					type: 'Category',
-					position: 'bottom',
-					fields: ['日期']
-				},
-				{
-					type: 'Numeric',
-					position: 'left',
-					fields: chartFields
-				}
-			],
-			series: series,
-			renderTo: 'trend'
+				Ext.create('Ext.chart.Chart', {
+					width: '100%',
+					height: 400,
+					store: store,
+					legend: {
+						position: 'right'
+					},
+					axes: [
+						{
+							type: 'Category',
+							position: 'bottom',
+							fields: ['日期']
+						},
+						{
+							type: 'Numeric',
+							position: 'left',
+							fields: chartFields
+						}
+					],
+					series: series,
+					renderTo: 'trend'
+				})
+			}
 		})
 	}
 

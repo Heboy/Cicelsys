@@ -4,8 +4,8 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
-var course = require('./routes/course');
+var routes = require('./routes/index');
+var overview = require('./routes/overview');
 var http = require('http');
 var path = require('path');
 
@@ -24,10 +24,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
-app.get('/course',course.courseData);
-app.get('/chapter',course.courseData);
-app.post('/data/course',course.getCourseData);
-app.post('/data/chapter',course.getChapterData);
+app.get('/overview',overview.overview);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
