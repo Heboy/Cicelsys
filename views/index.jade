@@ -18,8 +18,12 @@ block content
 				h1 网析
 				h2
 					small(style="color: #ffffff") 专业化的在线教学资源统计与分析平台
+				form(action="loginHandle",method="post")
+					p 键入SQL:
+					input(type="text",name="sql")
+					input(type="submit")
 			div(class="col-md-4")
-				form#lgn(class="form-horizontal",role="form",action="#",method="post")
+				form#lgn(class="form-horizontal",role="form",action="/loginhandle",method="post")
 					div.row
 						label(class="col-md-2 bs-margin-0 bs-padding-0") 账号
 						div(class="col-md-10")
@@ -85,6 +89,11 @@ block content
 block footer
 	div#footer(class="container bs-footer")
 		h5(class="margin-20-0") CICEL版权所有
+		-if(value)
+			p the result is
+			!=value.data
+		-else
+			p the result is null
 	script(src="script/jquery-1.10.2.js")
 	script(src="script/Bootstrap/js/bootstrap.js")
 	script(src="script/index.js")
