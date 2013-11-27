@@ -22,6 +22,7 @@ block content
 					p 键入SQL:
 					input(type="text",name="sql")
 					input(type="submit")
+				a(href="http://localhost:3000/") 点我
 			div(class="col-md-4")
 				form#lgn(class="form-horizontal",role="form",action="/loginhandle",method="post")
 					div.row
@@ -91,7 +92,7 @@ block footer
 		h5(class="margin-20-0") CICEL版权所有
 		-if(value)
 			p the result is
-			!=value.data
+			=value.data
 		-else
 			p the result is null
 	script(src="script/jquery-1.10.2.js")

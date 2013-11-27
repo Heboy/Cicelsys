@@ -132,7 +132,7 @@ Ext.onReady(function () {
 			else {
 //				跳转，服务器需验证输入
 				$('.tips-box').css('display', 'none');
-				window.location.href = window.location.href + '?start=' + start + '&end=' + end;
+				window.location.href = window.location.href.split("?")[0] + '?start=' + start + '&end=' + end;
 			}
 		})
 	})();

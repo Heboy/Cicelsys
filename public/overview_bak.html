@@ -11,8 +11,7 @@
     <link href="style/bootstrap-datetimepicker.css" rel="stylesheet">
     <link href="script/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body >
-<div id="wrap">
+<body data-spy="scroll" data-target=".bs-sidebar">
 <div id="header">
     <nav class="container navbar navbar-default" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -54,8 +53,7 @@
     <div class="row">
         <div class="col-md-2">
 
-            <div class="bs-sidebar hidden-print affix" role="complementary"
-            ">
+            <div  class="bs-sidebar hidden-print affix" role="complementary">
             <!--sidenav所指的div需要有一个较大的最小高度才能在点击时在导航栏上准确显示当前位置-->
             <ul class="nav bs-sidenav">
                 <li class="active">
@@ -240,10 +238,8 @@
         </div>
     </div>
 </div>
-</div>
 <div class="container bs-footer">
     <h5 class="margin-20-0">CICEL版权所有</h5>
-</div>
 </div>
 <input id="basic-data" type="hidden" class="data"
 value='[{"课程名称":"管理学原理","浏览量":466,"有效学习人数":102,"今日访问量":5,"今日有效学习人数":0,"课件利用率":25},{"课程名称":"会计学原理","浏览量":302,
