@@ -4,40 +4,6 @@
  * Licensed under the Creative Commons Attribution 3.0 Unported License. For
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
-
-
-/*
- * Bootstrap Documentation
- * Special styles for presenting Bootstrap's documentation and code examples.
- *
- * Table of contents:
- *
- * Scaffolding
- * Main navigation
- * Footer
- * Social buttons
- * Homepage
- * Page headers
- * Old docs callout
- * Ads
- * Side navigation
- * Docs sections
- * Callouts
- * Grid styles
- * Examples
- * Code snippets (highlight)
- * Responsive tests
- * Glyphicons
- * Customizer
- * Miscellaneous
- */
-
-
-/*
- * Scaffolding
- *
- * Update the basics of our documents to prep for docs content.
- */
 html, body {
     height: 100%;
 }
