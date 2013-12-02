@@ -12,7 +12,6 @@
 <body data-spy="scroll" data-target=".bs-sidebar">
 <div id="header">
     <nav class="container navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1">
@@ -24,7 +23,6 @@
             <img src="images/logo.png" style="margin: 10px 10px 0 0">
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">首页</a></li>
@@ -45,7 +43,6 @@
             </ul>
         </div>
     </nav>
-    <!-- /.navbar-collapse -->
 </div>
 <div id="content" class="bs-docs-container container">
     <div class="row">
@@ -67,7 +64,7 @@
         <div class="col-md-10" role="main">
 
             <div class="bs-docs-cicel min-height">
-                <h2 id="cicel1">
+                <h2>
                     课程管理
                 </h2>
                 <hr>
@@ -76,25 +73,37 @@
                     <table class="table table-striped table-bordered">
                         <tbody>
                         <tr>
-                            <td>课程名称</td>
+                            <td class="id">ID</td>
+                            <td class="coursename">课程名称</td>
+                            <td class="url">URL</td>
+                            <td class="department">所属院校</td>
                             <td>操作</td>
                         </tr>
-                        <tr>
-                            <td>管理学原理</td>
+                        <tr class="main-data">
+                            <td class="id">1001</td>
+                            <td class="coursename">管理学原理</td>
+                            <td class="url">http://www.swust.edu.cn</td>
+                            <td class="department">西南科技大学</td>
                             <td>
                                 <button type="button" class="modify btn btn-primary btn-sm">修改</button>
                                 <button type="button" class="delete btn btn-danger btn-sm">删除</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>会计学原理</td>
+                        <tr class="main-data">
+                            <td class="id">1002</td>
+                            <td class="coursename">会计学原理</td>
+                            <td class="url">http://www.swust.edu.cn</td>
+                            <td class="department">西南科技大学</td>
                             <td>
                                 <button type="button" class="modify btn btn-primary btn-sm">修改</button>
                                 <button type="button" class="delete btn btn-danger btn-sm">删除</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>政府经济学</td>
+                        <tr class="main-data">
+                            <td class="id">1003</td>
+                            <td class="coursename">政府经济学</td>
+                            <td class="url">http://www.swust.edu.cn</td>
+                            <td class="department">西南科技大学</td>
                             <td>
                                 <button type="button" class="modify btn btn-primary btn-sm">修改</button>
                                 <button type="button" class="delete btn btn-danger btn-sm">删除</button>
@@ -115,8 +124,11 @@
                                 <h4 class="modal-title" id="myModalLabel">修改课程</h4>
                             </div>
                             <div class="modal-body">
-                                课程名称:
-                                <input type="text" id="courseName">
+                                课程名称:<input type="text" id="courseName">
+                                <br>
+                                URL:<input type="text" id="url">
+                                <br>
+                                所属院校:<input type="text" id="department">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -133,8 +145,6 @@
 <div class="container bs-footer">
     <h5 class="margin-20-0">CICEL版权所有</h5>
 </div>
-</div>
-<input id="basic-data" type="hidden" class="data" value='[{"课程名称":"管理学原理"},{"课程名称":"经济学原理"},{"课程名称":"经济学"}]'></input>
 <script src="script/jquery-1.10.2.js"></script>
 <script src="script/Bootstrap/js/bootstrap.js"></script>
 <script src="script/manage.js"></script>
