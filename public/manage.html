@@ -8,6 +8,7 @@
     <link href="script/Bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="style/docs.css" rel="stylesheet">
     <link href="script/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="style/manage.css" rel="stylesheet">
 </head>
 <body data-spy="scroll" data-target=".bs-sidebar">
 <div id="header">
@@ -68,7 +69,7 @@
                     课程管理
                 </h2>
                 <hr>
-                <button type="button" class="btn btn-primary" data-target="#myModal">添加</button>
+                <button type="button" class="btn btn-primary" data-target="#myModal" id="add">添加</button>
                 <div id="t0">
                     <table class="table table-striped table-bordered">
                         <tbody>
@@ -116,7 +117,7 @@
                 <!--修改模态-->
                 <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">
-                    <div class="modal-dialog" style="top:200px">
+                    <div class="modal-dialog" style="top:180px">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
@@ -124,15 +125,13 @@
                                 <h4 class="modal-title" id="myModalLabel">修改课程</h4>
                             </div>
                             <div class="modal-body">
-                                课程名称:<input type="text" id="courseName">
-                                <br>
-                                URL:<input type="text" id="url">
-                                <br>
-                                所属院校:<input type="text" id="department">
+                                <span class="title">课程名称(必填):</span><input type="text" id="courseName" class="value">
+                                <span class="title">URL(必填):</span><input type="text" id="url" class="value">
+                                <span class="title">所属院校(必填):</span><input type="text" id="department" class="value">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary confirm">确定</button>
+                                <button type="button" class="btn btn-primary confirm" id="confirm">确定</button>
                             </div>
                         </div>
                     </div>
