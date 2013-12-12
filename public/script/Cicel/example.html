@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="Cicel_1.2.js"></script>
+</head>
+<body>
+<!--<button>没有用的按钮不用管了</button>-->
+<h3>发送普通统计示例：</h3>
+<p>{"courseID":758621,"chapterID":2105,"guid":"322dc705-5a24-c7b0-af23-ca92b70fab8b","starttime":1380512437599,
+    "staytime":544}</p>
+<p>说明：courseID暂定为课程id，因为目前在数据库中没有courseID字段；chapterID为章节id</p>
+<h3>自定义事件统计示例：</h3>
+<p>[{"appkey":758621,"eventName":"视频播放","eventValue":1}，{"appkey":758621,"eventName":"视频播放","eventValue":1}]</p>
+<p>说明：事件列表是一个数组，eventName为事件名称，字符串类型，eventValue为事件值，数字类型</p>
+<!--<script>-->
+    <!--var start = new Cicel.Start(758621,2105);-->
+    <!--var events = new Cicel.CustomEvent('视频播放',1);-->
+    <!--start.addEvents([events]);-->
+<!--</script>-->
+</body>
+</html>
