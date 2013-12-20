@@ -108,20 +108,22 @@ Ext.onReady(function () {
 		for (var j in basicRecords) {
 			coursesObjArr.push(basicRecords[j]["课程名称"]);
 		}
-		pag2();
+		pag2('time=day');
 		pag3();
 
-//注册timepicker
-		$('.form_date').datetimepicker({
-			format: 'yyyy-mm-dd',
-			weekStart: 1,
-			todayBtn: 1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-		});
+//		$('#trend_timepicker').on('click',function(e){
+//			var query = $(e.target).attr('time');
+//			console.log(query);
+//			if(query=='day'){
+//				pag2('time=day')
+//			}
+//			else if(query=='week'){
+//				pag2('time=week');
+//			}
+//			else if(query=='month'){
+//				pag2('time=month');
+//			}
+//		})
 		var search = $('#searchByTime');
 		search.on('click', function () {
 			var start = new Date($('#startTime').val()).getTime();
@@ -138,14 +140,14 @@ Ext.onReady(function () {
 	})();
 
 
-	function pag2() {
+	function pag2(query) {
 		var chartFields = [];
 		var series = [];
 		var fields = [
 			{name: "日期", type: "string"}
 		];
 
-		$.get("/Cicelsys/RemoteData/courses_data_trend.js", function (data) {
+		$.get("/Cicelsys/RemoteData/courses_data_trend.js?"+query, function (data) {
 			data = $.parseJSON(data);
 			if (data.length > 0) {
 				for (var i in data[0]) {
