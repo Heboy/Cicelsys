@@ -102,120 +102,97 @@ Ext.onReady(function () {
 		renderTo: 't2'
 	});
 
-	(function () {
-		var coursesObjArr = [];
-		//		计算趋势图的y轴名称
-		for (var j in basicRecords) {
-			coursesObjArr.push(basicRecords[j]["课程名称"]);
-		}
-		pag2('time=day');
-		pag3();
-
-//		$('#trend_timepicker').on('click',function(e){
-//			var query = $(e.target).attr('time');
-//			console.log(query);
-//			if(query=='day'){
-//				pag2('time=day')
-//			}
-//			else if(query=='week'){
-//				pag2('time=week');
-//			}
-//			else if(query=='month'){
-//				pag2('time=month');
-//			}
-//		})
-		var search = $('#searchByTime');
-		search.on('click', function () {
-			var start = new Date($('#startTime').val()).getTime();
-			var end = new Date($('#endTime').val()).getTime();
-			if (!start || !end || start >= end || end > new Date().getTime()) {
-				$('.tips-box').css('display', 'block');
-			}
-			else {
-//				跳转，服务器需验证输入
-				$('.tips-box').css('display', 'none');
-				window.location.href = window.location.href.split("?")[0] + '?start=' + start + '&end=' + end;
-			}
-		})
-	})();
-
-
-	function pag2(query) {
+	/**
+	 * 绘制趋势曲线，返回store用作更新操作
+	 */
+	var store1 = (function (remoteURL) {
 		var chartFields = [];
-		var series = [];
+
 		var fields = [
 			{name: "日期", type: "string"}
 		];
 
-		$.get("/Cicelsys/RemoteData/courses_data_trend.js?"+query, function (data) {
+		var model = Ext.define('Course', {
+			extend: 'Ext.data.Model',
+			fields: fields
+		});
+
+		var store = Ext.create('Ext.data.JsonStore', {
+			model: 'Course',
+		});
+
+		var chart = Ext.create('Ext.chart.Chart', {
+			width: '100%',
+			height: 400,
+			store: store,
+			legend: {
+				position: 'right'
+			},
+			axes: [
+				{
+					type: 'Category',
+					position: 'bottom',
+					fields: ['日期']
+				},
+				{
+					type: 'Numeric',
+					position: 'left',
+					fields: chartFields
+				}
+			],
+			series: [],
+			renderTo: 'trend'
+		})
+
+		$.get(remoteURL, function (data) {
 			data = $.parseJSON(data);
 			if (data.length > 0) {
-				for (var i in data[0]) {
-					if (i == '日期') {
-						continue;
-					}
-					chartFields.push(i);
-					fields.push({name:i,type:"int"});
-					series.push({
-						type: 'line',
-						axis: 'left',
-						highlight: true,
-						tips: {
-							trackMouse: true,
-							width: 25,
-							height: 25,
-							renderer: function (storeItem, item) {
-								this.setTitle(String(item.value[1]) + '人');
-							}
-						},
-						smooth: true,
-						xField: '日期',
-						yField: i,
-						markerConfig: {
-							type: 'cross',
-							size: 4,
-							radius: 4,
-							'stroke-width': 0
-						}
-					})
-				}
-				var model = Ext.define('Course', {
-					extend: 'Ext.data.Model',
-					fields: fields
-				});
-				var store = Ext.create('Ext.data.JsonStore', {
-					model: model,
-					data: data
-				});
+				buildFieldsAndSeries(data);
+			}
+			model.setFields(fields);
+			store.loadData(data);
+		});
 
-				Ext.create('Ext.chart.Chart', {
-					width: '100%',
-					height: 400,
-					store: store,
-					legend: {
-						position: 'right'
-					},
-					axes: [
-						{
-							type: 'Category',
-							position: 'bottom',
-							fields: ['日期']
-						},
-						{
-							type: 'Numeric',
-							position: 'left',
-							fields: chartFields
+		function buildFieldsAndSeries(data) {
+			for (var i in data[0]) {
+				if (i == '日期') {
+					continue;
+				}
+				chartFields.push(i);
+				fields.push({name: i, type: "int"});
+				chart.series.add({
+					type: 'line',
+					axis: 'left',
+					highlight: true,
+					tips: {
+						trackMouse: true,
+						width: 25,
+						height: 25,
+						renderer: function (storeItem, item) {
+							this.setTitle(String(item.value[1]) + '人');
 						}
-					],
-					series: series,
-					renderTo: 'trend'
+					},
+					smooth: true,
+					xField: '日期',
+					yField: i,
+					markerConfig: {
+						type: 'cross',
+						size: 4,
+						radius: 4,
+						'stroke-width': 0
+					}
 				})
 			}
-		})
-	}
+		}
 
-	function pag3() {
-		var model = Ext.define('Course', {
+		return store;
+	})('/Cicelsys/RemoteData/courses_data_trend.js');
+
+	/**
+	 * 绘制访问时段分布，返回store用作更新操作
+	 */
+	var store2 = (function (remoteURL) {
+		Ext.define('访问时段分布', {
 			extend: 'Ext.data.Model',
 			fields: [
 				{name: '课程名称', type: 'string'},
@@ -226,19 +203,22 @@ Ext.onReady(function () {
 				{name: '16点-20点', type: 'int', defaultValue: 0},
 				{name: '20点-24点', type: 'int', defaultValue: 0}
 			]
-		})
+		});
 		var store = Ext.create('Ext.data.JsonStore', {
-			model: model,
+			model: '访问时段分布',
 			proxy: {
 				type: 'ajax',
-				url: '/Cicelsys/RemoteData/courses_visittime.js',
+				url: remoteURL,
 				reader: {
 					type: 'json'
 				}
 			},
-			autoLoad: true
+			autoLoad: true,
+			listeners: {
+				load: function (a, b) {
+				}
+			}
 		});
-
 		Ext.create('Ext.chart.Chart', {
 			width: '100%',
 			height: 400,
@@ -277,5 +257,40 @@ Ext.onReady(function () {
 			],
 			renderTo: 'time'
 		});
-	}
+		return store;
+	})('/Cicelsys/RemoteData/courses_visittime.js');
+
+	/**
+	 * 趋势图时间按钮组事件
+	 */
+	$('#trend_timepicker').on('click', function (e) {
+		var time = $(e.target).attr('time');
+		var queryTime = getQueryStringRegExp('time');
+		var query = '?key=trend&time=';
+		if (!time || time == queryTime) {
+			return;
+		}
+		if (time == 'day' && queryTime == '') {
+			return;
+		}
+		else {
+			query += time;
+			$.get('/Cicelsys/RemoteData/courses_data_trend.js' + query, function (data) {
+				data = $.parseJSON(data);
+				store1.loadData(data);
+			})
+		}
+	})
+
 })
+
+/**
+ * 获取通过href传递的参数
+ * @param name
+ * @returns {*}
+ */
+function getQueryStringRegExp(name) {
+	var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(\\s|&|$)", "i");
+	if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " "));
+	return "";
+};
