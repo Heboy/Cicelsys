@@ -2,7 +2,7 @@
  * Created by Heboy on 13-12-12.
  */
 function Cicel(courseID, chapterID) {
-	var url = 'http://localhost:63342';//服务器地址
+	var url = 'http://cicelsys.tbyto.com/request/recievendata.php';//服务器地址
 	var min = 1000;//时间间隔，毫秒
 	var timestamp = {
 		//时间节点，单位为min
@@ -23,6 +23,9 @@ function Cicel(courseID, chapterID) {
 	var courseID = courseID;
 	var chapterID = chapterID;
 	var xhr = createXHR();
+
+	var script = document.createElement('script');//jsonp
+	document.getElementsByTagName("HEAD")[0].appendChild(script);
 
 	function createXHR() {
 		if (typeof XMLHttpRequest != "undefined") {
@@ -62,7 +65,6 @@ function Cicel(courseID, chapterID) {
 	}
 
 	function stringify(obj){
-		console.log(JSON.stringify(obj));
 		var str = "";
 		for(var i in obj){
 			str+='"'+i+'":"'+obj[i]+'",';
@@ -96,9 +98,7 @@ function Cicel(courseID, chapterID) {
 			return false;
 		};
 		console.log(basic);
-		xhr.open('post', url, true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send(basic);
+		script.setAttribute('src',url+'?data='+basic);
 		setTimeout(function () {
 			send();
 		}, timestamp.interval());
