@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="style/display.css" rel="stylesheet">
+    <meta charset="utf-8">
+</head>
+<body>
+<div id="index">
+    <h1>display属性</h1>
+
+    <h3>display:none</h3>
+
+    <h3>display:block</h3>
+    <h5><a href="#block">此元素将会显示为块级元素，前后带有换行符</a></h5>
+
+    <h3>display:inline</h3>
+    <h5><a href="#inline">默认，内联元素，前后无换行符，不能设置长宽，不能设置上下的边距</a></h5>
+
+    <h3>display:inline-block</h3>
+    <h5><a href="#inline-block">行内块元素（CSS2.1新增的值）</a></h5>
+
+    <h3>display:list-item</h3>
+    <h5><a href="#list-item">此元素将会作为列表显示</a></h5>
+
+    <h3>display:run-in</h3>
+    <h5><a href="#run-in">此元素会根据上下文做为块级元素或内联元素显示</a></h5>
+
+    <h3>display:table</h3>
+    <h5><a href="#table">此元素将会作为块级表格显示类似table标签，前后带有换行符</a></h5>
+
+    <h3>display:inline-table</h3>
+    <h5>此元素将会显示为内联table，前后无换行符</h5>
+
+    <h3>display:table-row-group</h3>
+    <h5>此元素将会作为一个或多个行的分组来显示，类似tbody</h5>
+
+    <h3>display:table-header-group</h3>
+    <h5>此元素类似thead</h5>
+
+    <h3>display:table-footer-group</h3>
+    <h5>此元素类似tfooter</h5>
+
+    <h3>display:table-row</h3>
+    <h5>此元素类似tr</h5>
+
+    <h3>display:table-column-group</h3>
+    <h5>此元素类似colgroup</h5>
+
+    <h3>display:table-column</h3>
+    <h5><a href="#table-column">此元素类似col</a></h5>
+
+    <h3>display:table-cell</h3>
+    <h5>此元素类似td和th</h5>
+
+    <h3>display:table-caption</h3>
+    <h5>此元素将会作为表格标题显示，类似caption</h5>
+</div>
+<div id="block">
+    <h3>block</h3>
+
+    <p>
+        块级元素可以设置长宽，内外边距,块级元素有blockquote,div,dl,fieldset,
+        form,h*,hr,menu,ol,p,pre,table,ul。
+    </p>
+    <blockquote style="border-left: 2px solid #06070a;padding-left: 10px">
+        blockquote之间的所有文本都会从常规文本中分离出来，经常会在左、右两边进行缩进（增加外边距），而且有时会使用斜体。也就是说，块引用拥有它们自己的空间。
+    </blockquote>
+    <fieldset>
+        fieldset会把自身与周围元素分割开
+    </fieldset>
+    <menu>
+        html5中重新定义了menu，用于定义菜单，在html4中不赞成使用menu
+    </menu>
+    <ol>
+        <li>ol是有序列表</li>
+        <li>ul是无序列表</li>
+        <li>这里演示ol</li>
+    </ol>
+    <pre>
+        pre标签包裹的文本将保留空格与换行符
+        比如现在这样；文本也会呈现等宽字体不建议使用width属性
+    </pre>
+    <p>把内联元素转换为块元素:</p>
+    <span style="display: block;background-color: darkseagreen;width: 400px;height: 200px;
+        margin: 10px 0;padding:10px 0;">
+        This is span,but i`m block;
+    </span>
+</div>
+<div id="inline">
+    <h3>inline</h3>
+
+    <p>
+        内联元素前后没有换行符，这是它能与其他没有换行符的元素显示在同一行的原因，内联元素有
+        a,input,span,b,em,img,select,textarea,strong等
+    </p>
+    <em style="margin-top: 10px;width: 500px;height: 100px;background-color: red;
+        line-height: 50px;padding:20px;">
+        不能设置长宽，不能设置上下的外边距,可以设置行高与padding;
+    </em>
+    <strong>
+        strong表示加粗
+    </strong>
+
+    <p>把内联元素转化为块级元素</p>
+    <span style="display: block;margin: 20px;background-color: red;width: 200px;height: 100px;">
+        内联元素前后没有换行符，这是它能与其他没有换行符的元素显示在同一行的原因，内联元素有
+    </span>
+</div>
+<div id="inline-block">
+    <h3>inline-block</h3>
+    <p>
+        可以设置长宽，外边距内边距，但是前后没有换行符
+    </p>
+    <span style="display: inline-block;width: 200px;line-height: 40px;background-color: red;
+        ">
+        This is span;
+    </span>
+    <a>This is a</a>
+</div>
+<div id="list-item">
+    <h3>list-item</h3>
+    <span style="display: list-item">
+        将内容分割成多个list
+    </span>
+    <span style="display: list-item">
+        比如多个div或者span之间
+    </span>
+    <span style="display: list-item">
+        表现形式与li类似
+    </span>
+    <span style="display: list-item">
+        IE6,7不渲染项目符号
+    </span>
+</div>
+<div id="run-in">
+    <h3>run-in</h3>
+    <span style="display: run-in">
+        <a style="display: run-in">非主流</a>
+        <a style="display: run-in">不知道怎么用</a>
+        <a style="display: run-in">但是尽然自动换行了,变成了块级元素，IE6,7不支持</a>
+    </span>
+</div>
+<div id="table">
+    <h3>table</h3>
+    <p>与其他table相关的标签配合使用,用来模拟table布局</p>
+
+    <span style="display: table">
+        <span style="display: table-caption">
+            例子中做个登陆界面,IE6,7不支持此样式（table-caption定义的table标题）
+        </span>
+        <span style="display: table-row">
+            <a style="display: table-cell;width: 100px;text-align: center;">用户名:</a>
+            <input type="text" style="display: table-cell;width: 200px;text-align: left;">
+        </span>
+        <span style="display: table-row">
+            <a style="display: table-cell;width: 100px;text-align: center;">密码:</a>
+            <input type="text" style="display: table-cell;width: 200px;text-align: left;">
+        </span>
+    </span>
+</div>
+<div id="column">
+    <h3>table-column</h3>
+    <span style="display: table">
+        <span style="display: table-row">
+            <span style="display: table-column;width: 100px;height: 20px;background-color: red">
+            </span>
+            <span style="display: table-column;width: 100px;">
+            </span>
+            <span style="display: table-column;width: 100px;">
+            </span>
+        </span>
+        <span style="display: table-row">
+            <a style="display: table-cell">ISBN</a>
+            <a style="display: table-cell">Title</a>
+            <a style="display: table-cell">Price</a>
+        </span>
+        <span style="display: table-row">
+            <a style="display: table-cell">3475621</a>
+            <a style="display: table-cell">Html</a>
+            <a style="display: table-cell">66</a>
+        </span>
+    </span>
+</div>
+</body>
+</html>
