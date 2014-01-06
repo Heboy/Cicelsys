@@ -24,8 +24,7 @@ function Cicel(courseID, chapterID) {
 	var chapterID = chapterID;
 	var xhr = createXHR();
 
-	var script = document.createElement('script');//jsonp
-	document.getElementsByTagName("HEAD")[0].appendChild(script);
+
 
 	function createXHR() {
 		if (typeof XMLHttpRequest != "undefined") {
@@ -97,8 +96,10 @@ function Cicel(courseID, chapterID) {
 		if (!timestamp.data.length) {
 			return false;
 		};
-		console.log(basic);
+		var script = document.createElement('script');//jsonp
+		document.getElementsByTagName("HEAD")[0].appendChild(script);
 		script.setAttribute('src',url+'?data='+basic);
+		console.log(basic);
 		setTimeout(function () {
 			send();
 		}, timestamp.interval());

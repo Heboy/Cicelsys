@@ -13,7 +13,6 @@
 <div id="wrap">
     <div id="header">
         <nav class="container navbar navbar-default" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1">
@@ -24,8 +23,6 @@
                 </button>
                 <img src="images/logo.png" style="margin: 10px 10px 0 0">
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">首页</a></li>
@@ -37,7 +34,6 @@
                     <li><a href="#">注册</a></li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </nav>
     </div>
     <div id="content" class="container">
@@ -50,19 +46,30 @@
                 </h2>
             </div>
             <div class="col-md-4">
-                <form class="form-horizontal" id="lgn" role="form" action="#" method="post"> `
+                <span class="row bs-margin-0 bs-errMsg"></span>
+                <form class="form-horizontal" id="lgn" role="form">
                     <div class="row">
                         <label class="col-md-2 bs-margin-0 bs-padding-0">邮箱</label>
 
                         <div class="col-md-10">
-                            <input type="text" class="form-control" placeholder="邮箱" name="email" required>
+                            <input id="emailLgn" type="text" class="form-control" placeholder="邮箱" name="email"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
                         <label class="col-md-2 bs-margin-0 bs-padding-0">密码</label>
 
                         <div class="col-md-10">
-                            <input type="password" class="form-control" placeholder="密码" name="pwd" required>
+                            <input id="pwdLgn" type="password" class="form-control" placeholder="密码" name="pwd"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 bs-margin-0 bs-padding-0">验证码</label>
+
+                        <div class="col-md-9">
+                            <input id="codeLgn" type="text" class="form-control" placeholder="验证码" name="code"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
@@ -71,31 +78,39 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+                    <button id="login" class="btn btn-lg btn-primary btn-block" type="button">登陆</button>
                 </form>
-                <form class="form-horizontal" id="reg" role="form" action="#" method="post" style="display: none">
+                <form class="form-horizontal" id="reg" role="form" style="display: none">
                     <div class="row">
                         <label class="col-md-2 bs-margin-0 bs-padding-0">邮箱</label>
 
                         <div class="col-md-10">
-                            <input type="text" class="form-control" placeholder="邮箱" name="email" required>
+                            <input id="emailReg" type="text" class="form-control" placeholder="邮箱" name="email"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col-md-2 bs-margin-0 bs-padding-0">密码</label>
+                        <label id="pwdReg" class="col-md-2 bs-margin-0 bs-padding-0">密码</label>
 
                         <div class="col-md-10">
                             <input type="text" class="form-control" placeholder="密码" name="pwd" required>
                         </div>
                     </div>
+                    <div class="row">
+                        <label class="col-md-3 bs-margin-0 bs-padding-0">验证码</label>
 
+                        <div class="col-md-9">
+                            <input id="codeReg" type="text" class="form-control" placeholder="验证码" name="code"
+                                   required>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12 text-right" style="font-size: 13px">
                             <a class="medium text-right" id="lgnBtn">去登陆 <i class="fa fa-arrow-circle-o-right"></i></a>
                         </div>
 
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block btn-success" type="submit">注册</button>
+                    <button id="register" class="btn btn-lg btn-primary btn-block btn-success" type="button">注册</button>
                 </form>
             </div>
         </div>

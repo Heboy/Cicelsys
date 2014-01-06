@@ -4,7 +4,7 @@
 /**
  * 实现修改 删除的逻辑
  */
-var manageCourse = (function () {
+(function () {
 
 	var currentTarget = null;
 	var lastTarget = null;
@@ -43,26 +43,24 @@ var manageCourse = (function () {
 						tr.remove();
 					}
 					else {
-						alert('删除失败');
-						console.log(data);
+						showErrMsg(data.toString());
 					}
 				});//这里的url替换成处理删除操作的url
 			}
 			else {
-				alert('没有id');
+				showErrMsg('没有ID');
 			}
 		}
 		else if (currentTarget.hasClass('cancel')) {
 			removeAlert(lastTarget);
 		}
-		///////////////////////end删除逻辑////////////////////////////////
 	});
+	///////////////////////end删除逻辑////////////////////////////////
 
 	/////////////////////////添加逻辑////////////////////////////////
 	$('#add').on('click', function (e) {
 		$('#modify').modal();
-		console.log('tang');
-		modify('add');
+			modify('add');
 	})
 
 	function removeAlert(target) {
@@ -96,7 +94,7 @@ var manageCourse = (function () {
 									"<button type='button' class='delete btn btn-danger btn-sm'>删除</button></td>");
 							}
 							else{
-								alert('修改失败');
+								showErrMsg(data.toString());
 							}
 						});
 				}
@@ -105,15 +103,11 @@ var manageCourse = (function () {
 					$.post('http://localhost:63342/Cicelsys/public/manage.html',
 						{op: 'add', coursename: courseName, url: url, department: department},
 						function (data) {
-							if (data.id&&data.result==='true') {
-								//返回'true'作为成功标志
-								var id = data.id;
-								tbody.append("<tr class='main-data'><td>" + id + "</td>" +
-									"<td>" + courseName + "</td>" +
-									"<td>" + url + "</td>" +
-									"<td>" + department + "</td>" +
-									"<td><button type='button' class='modify btn btn-primary btn-sm'>修改</button>" +
-									"<button type='button' class='delete btn btn-danger btn-sm'>删除</button></td></tr>");
+							if (data.result==='true') {
+								location.reload();
+							}
+							else{
+								showErrMsg(data.toString());
 							}
 						});
 				}
@@ -123,6 +117,13 @@ var manageCourse = (function () {
 			}
 			$('.confirm').off();
 		})
+	}
+
+	function showErrMsg(text) {
+		if (typeof text !== 'string') {
+			return;
+		}
+		$($('.bs-errMsg')[0]).text(text);
 	}
 })();
 

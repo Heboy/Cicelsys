@@ -1229,3 +1229,9 @@ h1[id] {
   margin-top: 15px;
   margin-bottom: 5px;
 }
+
+/*我定义的css样式*/
+.bs-errMsg{
+    color: red;
+    font-size:12px;
+}
