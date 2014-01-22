@@ -3,31 +3,28 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var routes = require('./routes/index');
-var overview = require('./routes/overview');
-var http = require('http');
-var path = require('path');
+var express = require('express'),
+	routes = require('./controller/routes/GeneralData.js'),
+	app = express();
 
-var app = express();
-
-// all environments
-app.set('port', 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('thsnxkd'));
-app.use(express.cookieSession());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', routes.index);
-app.get('/overview',overview.overview);
-app.post('/loginhandle',routes.loginHandle);
-
-var server = http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+app.configure(function(){
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.use(express.cookieParser('thsnxkd'));
+	app.use(express.cookieSession());
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
 });
 
+app.get('/', function(req, res){
+	res.send('hello world');
+});
+app.post('/register',function(req,res,next){
+	routes.Register(req,res,next);
+})
+
+app.listen(3000,function(){
+	console.log('Server Started');
+});

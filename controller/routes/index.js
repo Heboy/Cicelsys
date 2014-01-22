@@ -1,7 +1,7 @@
 /*
  * GET home page.
  */
-var connection = require('../controllers/conn');
+var connection = require('./utils/conn');
 exports.index = function (req, res, next) {
 //	判断COOKIE是否存在
 //	存在的话直接跳转到登陆后首页
