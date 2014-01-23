@@ -10,38 +10,41 @@ var userModel = {
 	department: null
 }
 
-function user(userID, password, department) {
-	userModel.userID = userID;
-	userModel.password = password;
-	userModel.department = department;
+function user(userObj) {
+	userModel.userID = userObj.userID;
+	userModel.password = userObj.password;
+	userModel.department = userObj.department;
 }
 exports.user = user;
 
-user.prototype.databaseInit = function(){
+user.prototype.databaseInit = function () {
 	connection = database.createConnection();
 }
 
-user.prototype.databaseEnd = function(){
+user.prototype.databaseEnd = function () {
 	connection.end();
 }
+
 /**
- *
+ * 判断用户是否已经存在
+ * @param callback
  */
 user.prototype.isUserExist = function (callback) {
 	var sql = 'select * from td_user where userID = ? and password = ?',
-		inserts = [this.userID, this.password];
-	var connection = database.createConnection();
+		inserts = [userModel.userID, userModel.password];
 	sql = database.preparedQuery(sql, inserts);
-	var query = connection.query(sql, function (err, results) {
+	console.log(sql);
+	connection.query(sql, function (err, results) {
 		if (err) {
-			callback(404, {result: err})
+			callback(404, {result: false, msg: err})
 		}
 		else if (results) {
+			console.log(results);
 			if (results.length > 0) {
-				callback(200, {result: true});
+				callback(200, {result: true, msg: '用户名与密码匹配'});
 			}
 			else {
-				callback(200, {result: false});
+				callback(200, {result: false, msg: '用户名与密码不匹配'});
 			}
 		}
 	});
@@ -52,7 +55,6 @@ user.prototype.isUserExist = function (callback) {
  * @param callback
  */
 user.prototype.addUser = function (callback) {
-//	var connection = database.createConnection();
 	this.isUserIDExist(function (status, msg) {
 		if (status == 404) {
 			callback(404, msg);
@@ -61,7 +63,6 @@ user.prototype.addUser = function (callback) {
 			callback(404, {result: false, msg: '用户名已存在'});
 		}
 		else if (status == 200 && msg.result == false) {
-//			connection.connect();
 			var sql = 'INSERT INTO td_user(userID,password,department) VALUES(?,?,?)',
 				inserts = [userModel.userID, userModel.password, userModel.department];
 
@@ -69,7 +70,7 @@ user.prototype.addUser = function (callback) {
 			sql = database.preparedQuery(sql, inserts);
 			connection.query(sql, function (err, results) {
 				if (err) {
-					callback(404, {msg: err});
+					callback(404, {result: false, msg: err});
 				}
 				else if (results.affectedRows == 1) {
 					callback(200, {result: true, msg: '添加成功'});
@@ -84,10 +85,8 @@ user.prototype.addUser = function (callback) {
  * @param userID
  */
 user.prototype.isUserIDExist = function (callback) {
-//	var connection = database.createConnection();
 	var sql = 'select userID from td_user where userID = ?',
 		inserts = [userModel.userID];
-//	connection.connect();
 	sql = database.preparedQuery(sql, inserts);
 	connection.query(sql, function (err, results) {
 		if (err) {
@@ -106,9 +105,32 @@ user.prototype.isUserIDExist = function (callback) {
 
 /**
  *更新
- * @param res
+ * @param callback
  */
-user.prototype.updateUser = function (res) {
-
+user.prototype.updateUser = function (callback) {
+	var sql = 'update td_user set ',
+		inserts = [];
+	if (userModel.password) {
+		sql += 'password = ?,';
+		inserts.push(userModel.password);
+	}
+	if (userModel.department) {
+		sql += 'department = ?,';
+		inserts.push(userModel.department);
+	}
+	sql = sql.slice(0, sql.length - 1) + ' where userID = ?';
+	inserts.push(userModel.userID);
+	sql = database.preparedQuery(sql, inserts);
+	connection.query(sql, function (err, results) {
+		if (err) {
+			callback(404, {result: false, msg: err});
+		}
+		else if (results.affectedRows == 1) {
+			callback(200, {result: true, msg: '更新成功'});
+		}
+		else {
+			callback(200, {result: false, msg: '更新失败'});
+		}
+	})
 }
 
