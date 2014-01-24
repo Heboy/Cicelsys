@@ -9,7 +9,6 @@ exports.Register = function (req, res) {
 		password:req.body.password,
 		department:req.body.department
 	}
-	console.log(userObj);
 	var user = new userModel.user(userObj);
 	user.databaseInit()
 	user.addUser(function (status, msg) {
@@ -28,7 +27,7 @@ exports.Login = function (req, res) {
 	user.databaseInit();
 	user.isUserExist(function (status, msg) {
 		if (status == 200) {
-			req.session.userID = userObj.userID;
+			req.body.userID = userObj.userID;
 		}
 		res.json(status, msg);
 		user.databaseEnd();

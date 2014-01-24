@@ -5,9 +5,8 @@ var courseModel = require('../../model/course');
 
 exports.getCourses = function(req,res){
 	var courseObj = {
-		userID:req.params.userID,
+		userID:req.body.userID
 	}
-	console.log(courseObj);
 	var course = new courseModel.course(courseObj);
 	course.databaseInit();
 	course.getCourses(function (status, msg) {
@@ -33,7 +32,7 @@ exports.addCourse = function(req,res){
 
 exports.updateCourseInfo = function(req,res){
 	var courseObj = {
-		courseID:req.params.courseID,
+		courseID:req.body.courseID,
 		courseName:req.body.courseName,
 		userID:req.body.userID,
 		note:req.body.note
@@ -60,13 +59,10 @@ exports.updateCourseInfo = function(req,res){
 exports.deleteCourse = function(req,res){
 	var courseObj = {
 		courseID:req.params.courseID,
-		courseName:req.body.courseName,
-		userID:req.body.userID,
-		note:req.body.note
 	}
 
 	var course = new courseModel.course(courseObj);
-	course.databaseInit();
+	course.databaseInitWithMultipleStatements();
 	course.deleteCourse(function (status, msg) {
 		res.json(status, msg);
 		course.databaseEnd();

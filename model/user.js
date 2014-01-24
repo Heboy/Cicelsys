@@ -10,18 +10,18 @@ var userModel = {
 	department: null
 }
 
-function user(userObj) {
+function User(userObj) {
 	userModel.userID = userObj.userID;
 	userModel.password = userObj.password;
 	userModel.department = userObj.department;
 }
-exports.user = user;
+exports.user = User;
 
-user.prototype.databaseInit = function () {
+User.prototype.databaseInit = function () {
 	connection = database.createConnection();
 }
 
-user.prototype.databaseEnd = function () {
+User.prototype.databaseEnd = function () {
 	connection.end();
 }
 
@@ -29,7 +29,7 @@ user.prototype.databaseEnd = function () {
  * 判断用户是否已经存在
  * @param callback
  */
-user.prototype.isUserExist = function (callback) {
+User.prototype.isUserExist = function (callback) {
 	var sql = 'select * from td_user where userID = ? and password = ?',
 		inserts = [userModel.userID, userModel.password];
 	sql = database.preparedQuery(sql, inserts);
@@ -54,7 +54,7 @@ user.prototype.isUserExist = function (callback) {
  * 添加用户
  * @param callback
  */
-user.prototype.addUser = function (callback) {
+User.prototype.addUser = function (callback) {
 	this.isUserIDExist(function (status, msg) {
 		if (status == 404) {
 			callback(404, msg);
@@ -75,6 +75,9 @@ user.prototype.addUser = function (callback) {
 				else if (results.affectedRows == 1) {
 					callback(200, {result: true, msg: '添加成功'});
 				}
+				else{
+					callback(200, {result: false, msg: '添加失败'});
+				}
 			});
 		}
 	});
@@ -84,7 +87,7 @@ user.prototype.addUser = function (callback) {
  * 检查userID是否存在
  * @param userID
  */
-user.prototype.isUserIDExist = function (callback) {
+User.prototype.isUserIDExist = function (callback) {
 	var sql = 'select userID from td_user where userID = ?',
 		inserts = [userModel.userID];
 	sql = database.preparedQuery(sql, inserts);
@@ -107,7 +110,7 @@ user.prototype.isUserIDExist = function (callback) {
  *更新
  * @param callback
  */
-user.prototype.updateUser = function (callback) {
+User.prototype.updateUser = function (callback) {
 	var sql = 'update td_user set ',
 		inserts = [];
 	if (userModel.password) {

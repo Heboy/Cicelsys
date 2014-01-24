@@ -8,9 +8,19 @@ exports.createConnection = function () {
 	return  connection = mysql.createConnection({
 		user: 'root',
 		password: '123456',
-		database: 'cicelsys'
+		database: 'cicelsys',
 	})
 }
+
+exports.createConnectionWithMultipleStatements = function(){
+	return  connection = mysql.createConnection({
+		user: 'root',
+		password: '123456',
+		database: 'cicelsys',
+		multipleStatements: true
+	})
+}
+
 
 exports.connect = function () {
 	if (connection) {
