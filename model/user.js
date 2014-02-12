@@ -7,7 +7,8 @@ var database = require('../controller/database'),
 var userModel = {
 	userID: null,
 	password: null,
-	department: null
+	department: null,
+	permission:null
 }
 
 function User(userObj) {
@@ -136,4 +137,6 @@ User.prototype.updateUser = function (callback) {
 		}
 	})
 }
+
+
 

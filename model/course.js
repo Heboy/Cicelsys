@@ -9,6 +9,7 @@ var courseModel = {
 	courseName: null,
 	department: null,
 	userID: null,
+	appkey:null,
 	note: null
 }
 
@@ -149,7 +150,6 @@ Course.prototype.deleteCourse = function (callback) {
 		inserts = [courseModel.courseID,courseModel.courseID];
 
 	sql = database.preparedQuery(sql, inserts);
-	console.log(sql);
 	connection.query(sql, function (err, results) {
 		if (err) {
 			callback(404, {result: false, msg: err});
@@ -164,4 +164,28 @@ Course.prototype.deleteCourse = function (callback) {
 			callback(200, {result: false, msg: '删除失败'});
 		}
 	})
+}
+
+/**
+ * 获取appkey
+ * @param courseID
+ * @param callback
+ */
+Course.prototype.getAppKey = function(courseID,callback){
+	var sql = 'select appkey from td_course where courseID=?',
+		inserts = [courseModel.courseID];
+	sql = database.preparedQuery(sql, inserts);
+	connection.query(sql, function (err, results) {
+		if (err) {
+			callback(404, {result: false, msg: err})
+		}
+		else if (results) {
+			if (results.length > 0) {
+				callback(200, {result: results[0].appkey, msg: '取得appkey'});
+			}
+			else {
+				callback(200, {result: null, msg: '未取得appkey'});
+			}
+		}
+	});
 }

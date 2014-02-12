@@ -52,6 +52,15 @@ app.put('/course',function(req,res,next){
 app.delete('/course/:courseID',function(req,res,next){
 	courseRoutes.deleteCourse(req,res);
 });
+app.post('/record/:courseID',function(req,res,next){
+	courseRoutes.addCourseRecord(req,res);
+});
+//测试用
+app.post('/test',function(req,res){
+	var s = require('./controller/certification/DESCoder');
+	s.DESEncode();
+	//edb790bdf30894e32d941e63e8f6abf4d95a9f7c7ad3129fb9d529a8315f1261e50c69e1593ea925dc3294bde08e301fb79396a30eecf2964f18f5cdd416f00cde87957479b6fd54
+})
 
 /**
  * chapter路由

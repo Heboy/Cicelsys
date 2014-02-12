@@ -2,6 +2,7 @@
  * Created by Heboy on 14-1-17.
  */
 var userModel = require('../../model/user');
+var cc = require('../certification/DESCoder');
 
 exports.Register = function (req, res) {
 	var userObj = {
@@ -33,7 +34,6 @@ exports.Login = function (req, res) {
 		user.databaseEnd();
 	})
 }
-
 
 exports.updateUserInfo = function(req,res){
 	var userObj = {
