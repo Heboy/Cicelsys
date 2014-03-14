@@ -2,69 +2,74 @@
  * Created by Heboy on 14-1-17.
  */
 var courseModel = require('../../model/course');
-
+/**
+ *查看user所有课程
+ * @param req
+ * @param res
+ */
 exports.getCourses = function (req, res) {
 	var courseObj = {
 		userID: req.body.userID
 	}
-	var course = new courseModel.course(courseObj);
+	var course = new courseModel.Course(courseObj);
 	course.databaseInit();
 	course.getCourses(function (status, msg) {
 		res.json(status, msg);
 		course.databaseEnd();
 	});
 }
-
-exports.addCourse = function (req, res) {
+/**
+ * 根据courseID查询课程，可批量
+ * @param req
+ * @param res
+ */
+exports.getCoursesByID = function (req, res) {
 	var courseObj = {
-		courseName: req.body.courseName,
-		userID: req.body.userID,
-		note: req.body.note
+		userID: req.body.userID
 	}
-
-	var course = new courseModel.course(courseObj);
+	var course = new courseModel.Course(courseObj);
 	course.databaseInit();
-	course.addCourse(function (status, msg) {
+	course.getCoursesByID([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (status, msg) {
 		res.json(status, msg);
 		course.databaseEnd();
 	});
 }
-
-exports.updateCourseInfo = function (req, res) {
-	var courseObj = {
-		courseID: req.body.courseID,
-		courseName: req.body.courseName,
-		userID: req.body.userID,
-		note: req.body.note
-	}
-
-	if (courseObj.courseName || courseObj.department || courseObj.note) {
-		if (courseObj.userID) {
-			var course = new courseModel.course(courseObj);
-			course.databaseInit();
-			course.updateCourse(function (status, msg) {
-				res.json(status, msg);
-				course.databaseEnd();
-			})
-		}
-		else {
-			res.json(404, {result: false, msg: '超时，重新登录'});
-		}
-	}
-	else {
-		res.json(404, {result: false, msg: '无更新值'});
-	}
+/**
+ * 添加 可批量
+ * @param dataObj
+ * @param callback
+ */
+exports.addCourses = function (dataObj, callback) {
+	var course = new courseModel.Course(null);
+	course.databaseInit();
+	course.addCourses(dataObj, function (status, msg) {
+		callback(status, msg);
+		course.databaseEnd();
+	});
 }
 
-exports.deleteCourse = function (req, res) {
-	var courseObj = {
-		courseID: req.params.courseID,
-	}
+exports.updateCoursesInfo = function (dataObj, callback) {
+	var course = new courseModel.Course(null);
+	course.databaseInit();
+	course.updateCourses(dataObj, function (status, msg) {
+		callback(status, msg);
+		course.databaseEnd();
+	});
+}
 
-	var course = new courseModel.course(courseObj);
-	course.databaseInitWithMultipleStatements();
-	course.deleteCourse(function (status, msg) {
-		res.json(status, msg);
+/**
+ * 删除 可批量
+ * @param dataObj
+ * @param callback
+ */
+exports.deleteCourses = function (dataObj, callback) {
+	var course = new courseModel.Course(null);
+	course.databaseInit();
+	course.deleteCourses(dataObj, function (result, msg) {
+		if (msg.affectedRows > 0) {
+			msg = '删除成功';
+		}
+		callback(result, msg);
 		course.databaseEnd();
 	});
 }

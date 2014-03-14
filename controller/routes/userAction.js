@@ -4,6 +4,11 @@
 var userModel = require('../../model/user');
 var cc = require('../certification/DESCoder');
 
+exports.getUserById = function(userID,callback){
+	var user = new userModel.user(null);
+	user.getUserById(userID,callback);
+}
+
 exports.Register = function (req, res) {
 	var userObj = {
 		userID:req.body.userID,

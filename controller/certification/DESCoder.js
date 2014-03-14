@@ -1,25 +1,53 @@
 /**
  * Created by Heboy on 14-2-11.
  */
-var crypto = require('crypto');
+var crypto = require('crypto'),
+	userModel = require('../../model/user');
 
-exports.DESDecode = function (data, appkey) {
-	var decipher = crypto.createDecipher('des', appkey);
-	try {
-		var dec = decipher.update(data, 'hex', 'utf8');
-		dec += decipher.final('utf8');
-	} catch (err) {
-		dec = false;
+exports.DESDecode = function (req, res, callback) {
+	var user = new userModel.user(null),
+		decipher = null,
+		dec = null,
+		result = null;
+	if (req.session['appkey'] == null) {
+		user.databaseInit();
+		user.getAppkey(req.body.userID, function (appkey, msg) {
+			if (appkey == '404') {
+				res.json(400, msg);
+			}
+			else {
+				req.session['appkey'] = appkey;
+				decipher = crypto.createDecipher('des', req.session['appkey']);
+				try {
+					dec = decipher.update(req.body.data, 'hex', 'utf8');
+					dec += decipher.final('utf8');
+					result = JSON.parse(dec);
+				} catch (err) {
+					res.json(404, {msg: 'appkey不匹配'});
+				}
+				finally {
+					user.databaseEnd();
+				}
+				callback(result);
+			}
+		})
 	}
-	return dec;
+	else {
+		decipher = crypto.createDecipher('des', req.session['appkey']);
+		try {
+			dec = decipher.update(req.body.data, 'hex', 'utf8');
+			dec += decipher.final('utf8');
+			result = JSON.parse(dec);
+		} catch (err) {
+			res.json(404, {msg: 'appkey不匹配'});
+		}
+		callback(result);
+	}
 }
 
 exports.DESEncode = function (data, appkey) {
-	var cipher = crypto.createCipher('des', 'cicelsys')
-	var text = '{"eventName": "测试事件","visits": 201,"effective": 110,"courseID": 8,"chapterID":1, "date": "2014-2-12"}';
-	var text2 = '{"stuID": "唐海波","courseID": 8,"chapterID": 1,"visits": 114,"effective":40, "date": "2014-2-12"}';
-	var text3 =  '{"stuID": "唐海波","eventName": "测试事件","eventValue": 1,"courseID": 8,"chapterID":1, "date": "2014-2-12"}';
-	var crypted = cipher.update(text3, 'utf8', 'hex')
-	crypted += cipher.final('hex')
-	console.log(crypted)
+	var cipher = crypto.createCipher('des', appkey);
+	var crypted = cipher.update(data, 'utf8', 'hex');
+	crypted += cipher.final('hex');
+	return crypted;
 }

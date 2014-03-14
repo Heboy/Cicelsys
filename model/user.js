@@ -7,14 +7,13 @@ var database = require('../controller/database'),
 var userModel = {
 	userID: null,
 	password: null,
+	appkey:null,
 	department: null,
 	permission:null
 }
 
 function User(userObj) {
-	userModel.userID = userObj.userID;
-	userModel.password = userObj.password;
-	userModel.department = userObj.department;
+
 }
 exports.user = User;
 
@@ -27,6 +26,44 @@ User.prototype.databaseEnd = function () {
 }
 
 /**
+ * 获取Appkey
+ * @param userID
+ * @param callback
+ */
+User.prototype.getAppkey = function(userID,callback){
+	var sql = 'select appkey from td_user where userID = ?',
+		inserts = [userID];
+	sql = database.preparedQuery(sql, inserts);
+	connection.query(sql, function (err, results) {
+		if (err) {
+			callback(404, {msg: err});
+		}
+		callback(results[0].appkey,null);
+	});
+}
+/**
+ *
+ * @param callback
+ */
+User.prototype.getUserById = function(callback){
+	var sql = 'select userID,appkey,department,permission from td_user where userID = ?',
+		inserts = [userModel.userID];
+	sql = database.preparedQuery(sql, inserts);
+	connection.query(sql, function (err, results) {
+		if (err) {
+			callback(404, {msg: err})
+		}
+		else if (results[0]) {
+			userModel.userID = results[0].userID;
+			userModel.appkey = results[0].appkey;
+			userModel.department = results[0].department;
+			userModel.permission = results[0].permission;
+			callback(this);
+		}
+	});
+}
+
+/**
  * 判断用户是否已经存在
  * @param callback
  */
@@ -34,7 +71,6 @@ User.prototype.isUserExist = function (callback) {
 	var sql = 'select * from td_user where userID = ? and password = ?',
 		inserts = [userModel.userID, userModel.password];
 	sql = database.preparedQuery(sql, inserts);
-	console.log(sql);
 	connection.query(sql, function (err, results) {
 		if (err) {
 			callback(404, {result: false, msg: err})
