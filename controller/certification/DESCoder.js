@@ -46,8 +46,10 @@ exports.DESDecode = function (req, res, callback) {
 }
 
 exports.DESEncode = function (data, appkey) {
-	var cipher = crypto.createCipher('des', appkey);
-	var crypted = cipher.update(data, 'utf8', 'hex');
-	crypted += cipher.final('hex');
-	return crypted;
+	var key = new Buffer('cicelsys'),
+		iv = new Buffer('12345678');
+	var cipher = crypto.createCipheriv('des', key, iv);
+	var ciph = cipher.update(data, 'utf8', 'base64');
+	ciph += cipher.final('base64');
+	return ciph;
 }

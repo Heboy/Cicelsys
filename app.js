@@ -55,8 +55,8 @@ app.get('/courses', function (req, res) {
  * 新增课程，可批量
  */
 app.post('/courses', function (req, res) {
+	DESEncode(req);
 	checkContentType(req,res);
-	//req.body.courses = DESEncode(req);
 	desCoder.DESDecode(req,res,function(result){
 		var dataObj = {
 			userID:req.body.userID,
