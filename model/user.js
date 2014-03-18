@@ -15,7 +15,7 @@ var userModel = {
 function User(userObj) {
 
 }
-exports.user = User;
+exports.User = User;
 
 User.prototype.databaseInit = function () {
 	connection = database.createConnection();

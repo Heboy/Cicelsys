@@ -5,8 +5,9 @@ var crypto = require('crypto'),
 	userModel = require('../../model/user');
 
 exports.DESDecode = function (req, res, callback) {
-	var user = new userModel.user(null),
+	var user = new userModel.User(null),
 		decipher = null,
+		iv = '12345678',
 		dec = null,
 		result = null;
 	if (req.session['appkey'] == null) {
@@ -17,9 +18,9 @@ exports.DESDecode = function (req, res, callback) {
 			}
 			else {
 				req.session['appkey'] = appkey;
-				decipher = crypto.createDecipher('des', req.session['appkey']);
+				decipher = crypto.createDecipheriv('des', req.session['appkey'],iv);
 				try {
-					dec = decipher.update(req.body.data, 'hex', 'utf8');
+					dec = decipher.update(req.body.data, 'base64', 'utf8');
 					dec += decipher.final('utf8');
 					result = JSON.parse(dec);
 				} catch (err) {
@@ -33,9 +34,9 @@ exports.DESDecode = function (req, res, callback) {
 		})
 	}
 	else {
-		decipher = crypto.createDecipher('des', req.session['appkey']);
+		decipher = crypto.createDecipheriv('des', req.session['appkey'],iv);
 		try {
-			dec = decipher.update(req.body.data, 'hex', 'utf8');
+			dec = decipher.update(req.body.data, 'base64', 'utf8');
 			dec += decipher.final('utf8');
 			result = JSON.parse(dec);
 		} catch (err) {
@@ -44,12 +45,25 @@ exports.DESDecode = function (req, res, callback) {
 		callback(result);
 	}
 }
-
+///////////////////////////////////////////////////////
 exports.DESEncode = function (data, appkey) {
-	var key = new Buffer('cicelsys'),
-		iv = new Buffer('12345678');
-	var cipher = crypto.createCipheriv('des', key, iv);
-	var ciph = cipher.update(data, 'utf8', 'base64');
-	ciph += cipher.final('base64');
-	return ciph;
+	var
+		cryptkey = 'cicelsys',
+		iv = '12345678',
+		buf = "course_管理学原理",
+		enc = encode(cryptkey, iv, buf);
+}
+//no iv:OXrM99jS8HppUABtH9F6tg==
+//iv: UXpDAPuakKTSuUjVLJZbPg==
+//+m8/YEXInPRBOOmT/vDIpdvFwpWiVhEPprmWZp5mmOg=
+
+//dex fiwp2A5pijy5X0qtIytljUEqxPPVUH6K
+//fiwp2A5pijy5X0qtIytljUEqxPPVUH6K
+function encode(cryptkey, iv, cleardata) {
+	var
+		encipher = crypto.createCipheriv('des', cryptkey,iv),
+		encoded = encipher.update(cleardata, 'utf8', 'base64');
+
+	encoded += encipher.final('base64');
+	return encoded;
 }
