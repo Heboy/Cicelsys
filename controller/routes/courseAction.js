@@ -1,75 +1,127 @@
 /**
  * Created by Heboy on 14-1-17.
  */
-var courseModel = require('../../model/course');
+var courseModel = require('../../model/course'),
+	database = require('../database'),
+	desCoder = require('../DESCoder');
+
 /**
- *查看user所有课程
+ * 查询
  * @param req
  * @param res
  */
+exports.getCourse = function (req, res) {
+	var courseObj = {
+		courseID: req.query.courseID
+	}
+	var course = new courseModel.Course(courseObj);
+	course.get(res);
+}
 exports.getCourses = function (req, res) {
-	var courseObj = {
-		userID: req.body.userID
+	var courses = req.query.coursesID;
+	try {
+		courses = JSON.parse(courses);
+		database.createConnection();
+		courseModel.Course.Get(courses, res, function () {
+			database.end();
+		});
+	} catch (e) {
+		res.json({error: '参数错误'})
 	}
-	var course = new courseModel.Course(courseObj);
-	course.databaseInit();
-	course.getCourses(function (status, msg) {
-		res.json(status, msg);
-		course.databaseEnd();
-	});
 }
 /**
- * 根据courseID查询课程，可批量
+ * 添加
  * @param req
  * @param res
  */
-exports.getCoursesByID = function (req, res) {
+exports.addCourse = function (req, res) {
 	var courseObj = {
-		userID: req.body.userID
+		courseName: req.body.courseName,
+		userID: req.body.userID,
+		Note: req.body.Note
+	}
+	if (courseObj.courseName && courseObj.userID) {
+		var course = new courseModel.Course(courseObj);
+		course.createConnection();
+		course.add(res, function () {
+			course.databaseEnd();
+		});
+	}
+	else {
+		res.json({error: '参数错误'});
+	}
+}
+exports.addCourses = function (req, res) {
+	var courses = req.body.courses;
+	try {
+		courses = JSON.parse(courses);
+		database.createConnection();
+		courseModel.Course.Add(courses, res, function () {
+			database.end();
+		});
+	} catch (e) {
+		res.json({error: '参数错误'})
+	}
+}
+
+/**
+ * 更新
+ * @param req
+ * @param res
+ */
+exports.updateCourse = function (req, res) {
+	var courseObj = {
+		courseName: req.body.courseName,
+		Note: req.body.Note
+	}
+	if(courseObj.courseName){
+		var course = new courseModel.Course(courseObj);
+		database.createConnection();
+		course.update(res, function () {
+			database.end();
+		});
+	}
+	else{
+		res.json({error:'参数错误'});
+	}
+}
+exports.updateCourses = function(req,res){
+	var courses = req.body.courses;
+	try {
+		courses = JSON.parse(courses);
+		database.createConnection();
+		courseModel.Course.Update(courses, res, function () {
+			database.end();
+		});
+	} catch (e) {
+		res.json({error: '参数错误'})
+	}
+}
+
+/**
+ * 删除
+ * @param req
+ * @param res
+ */
+exports.deleteCourse = function (req,res) {
+	var courseObj = {
+		courseID: req.query.courseID
 	}
 	var course = new courseModel.Course(courseObj);
-	course.databaseInit();
-	course.getCoursesByID([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (status, msg) {
-		res.json(status, msg);
-		course.databaseEnd();
+	database.createConnection();
+	course.delete(res, function () {
+		database.end();
 	});
 }
-/**
- * 添加 可批量
- * @param dataObj
- * @param callback
- */
-exports.addCourses = function (dataObj, callback) {
-	var course = new courseModel.Course(null);
-	course.databaseInit();
-	course.addCourses(dataObj, function (status, msg) {
-		callback(status, msg);
-		course.databaseEnd();
-	});
-}
-
-exports.updateCoursesInfo = function (dataObj, callback) {
-	var course = new courseModel.Course(null);
-	course.databaseInit();
-	course.updateCourses(dataObj, function (status, msg) {
-		callback(status, msg);
-		course.databaseEnd();
-	});
-}
-
-/**
- * 删除 可批量
- * @param dataObj
- * @param callback
- */
-exports.deleteCourses = function (dataObj, callback) {
-	var course = new courseModel.Course(null);
-	course.databaseInit();
-	course.deleteCourses(dataObj, function (result, msg) {
-		if (msg.affectedRows > 0) {
-			msg = '删除成功';
-		}
-		callback(result, msg);
-		course.databaseEnd();
-	});
+exports.deleteCourses = function(req,res){
+	var courses = req.body.coursesID;
+	try {
+		courses = JSON.parse(courses);
+		database.createConnection();
+		courseModel.Course.Delete(courses, res, function () {
+			database.end();
+		});
+	} catch (e) {
+		res.json({error: '参数错误'});
+	}
 }

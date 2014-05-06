@@ -5,6 +5,7 @@ var mysql = require('mysql'),
 	connection = null;
 
 exports.createConnection = function () {
+	console.log('Connected!');
 	return  connection = mysql.createConnection({
 		user: 'root',
 		password: '123456',
@@ -29,6 +30,7 @@ exports.connect = function () {
 }
 
 exports.end = function () {
+	console.log('Ended!');
 	if (connection) {
 		connection.end();
 	}
@@ -43,3 +45,5 @@ exports.end = function () {
 exports.preparedQuery = function (sql, params) {
 	return mysql.format(sql, params);
 }
+
+exports.connection = connection;

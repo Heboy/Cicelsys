@@ -3,17 +3,19 @@
  */
 
 var express = require('express'),
+	http = require('http'),
 	userRoutes = require('./controller/routes/userAction'),
 	courseRoutes = require('./controller/routes/courseAction'),
 	chapterRoutes = require('./controller/routes/chapterAction'),
 	recordRoutes = require('./controller/routes/recordAction'),
-	desCoder = require('./controller/certification/DESCoder'),
-	app = express();
+	desCoder = require('./controller/DESCoder'),
+	tools = require('./controller/tools');
+app = express();
 
 app.configure(function () {
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
-	app.use(express.cookieParser('thsnxkd'));
+	app.use(express.cookieParser('CookieM'));
 	app.use(express.cookieSession());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
@@ -29,77 +31,94 @@ app.post('/', function (req, res) {
 	res.json({status: true});
 });
 
-/**
- * user路由
- */
-app.post('/user/register', function (req, res) {
-	userRoutes.Register(req, res);
-});
-app.post('/user/login', function (req, res) {
-	userRoutes.Login(req, res);
-});
-app.put('/user/update', function (req, res) {
-	userRoutes.updateUserInfo(req, res);
-});
+////////////////////////////userRoutes/////////////////////////////////
+//app.post('/user/register', function (req, res) {
+//	userRoutes.Register(req, res);
+//});
+//app.post('/user/login', function (req, res) {
+//	userRoutes.Login(req, res);
+//});
+//app.put('/user/update', function (req, res) {
+//	userRoutes.updateUserInfo(req, res);
+//});
+
+app.post('/private/user/login',function(req,res){
+	req.session['userID'] = 'tang';
+	res.json({result:'ok'});
+})
 
 ////////////////////////////courseRoutes/////////////////////////////////
-app.get('/course', function (req, res) {
-	courseRoutes.getCourses(req, res);
+app.get('/private/course', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.getCourse(req, res);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
 });
 
-app.get('/courses', function (req, res) {
-	courseRoutes.getCoursesByID(req, res);
+app.get('/private/courses', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.getCourses(req, res);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
 });
 
-/**
- * 新增课程，可批量
- */
-app.post('/courses', function (req, res) {
-	checkContentType(req,res);
-	desCoder.DESDecode(req,res,function(result){
-		var dataObj = {
-			userID:req.body.userID,
-			courses:result
-		};
-		courseRoutes.addCourses(dataObj,function(result,msg){
-			res.json(result,msg);
-		});
-	})
+app.post('/private/course/add', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.addCourse(res, req);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
 });
 
-/**
- * 删除，可批量
- */
-app.post('/courses/delete', function (req, res) {
-	checkContentType(req,res);
-	desCoder.DESDecode(req,res,function(result){
-		var dataObj = {
-			userID:req.body.userID,
-			courses:result
-		};
-		courseRoutes.deleteCourses(dataObj,function(result,msg){
-			res.json(result,msg);
-		});
-	})
+app.post('/private/courses/add', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.addCourses(res, req);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
 });
 
-/**
- * 更新，可批量
- */
-app.put('/courses', function (req, res) {
-	checkContentType(req,res);
-	desCoder.DESDecode(req,res,function(result){
-		var dataObj = {
-			userID:req.body.userID,
-			courses:result
-		};
-		courseRoutes.updateCoursesInfo(dataObj,function(result,msg){
-			res.json(result,msg);
-		});
-	})
+app.post('/private/course/delete', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.deleteCourse(res, req);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
 });
 
+app.post('/private/courses/delete', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.deleteCourses(res, req);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
+});
 
+app.post('/private/course/update', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.updateCourse(res, req);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
+});
+
+app.post('/private/courses/update', function (req, res) {
+	if (req.session['userID']) {
+		courseRoutes.updateCourses(res, req);
+	}
+	else {
+		res.json({error: '无权限'});
+	}
+});
 ////////////////////////////recordRoutes/////////////////////////////////
 /**
  * application/json
@@ -161,11 +180,9 @@ app.post('/chapter', function (req, res) {
 app.put('/chapter', function (req, res) {
 	chapterRoutes.updateChapterInfo(req, res);
 });
-app.delete('/chapter/:chapterID', function (req, res) {
+app.post('/chapter/:chapterID', function (req, res) {
 	chapterRoutes.deleteChapter(req, res);
 });
-
-
 
 
 app.listen(3000, function () {
@@ -177,17 +194,17 @@ app.listen(3000, function () {
  * @param req
  * @param res
  */
-function checkContentType(req,res){
+function checkContentType(req, res) {
 	var contentType = req.header("content-type").split(';')[0];
-	if(req.method.toLowerCase()=='post'){
-		if(contentType!='application/x-www-form-urlencoded'){
-			res.json(404,{msg:'ContentType必须是application/x-www-form-urlencoded'});
+	if (req.method.toLowerCase() == 'post') {
+		if (contentType != 'application/x-www-form-urlencoded') {
+			res.json(404, {msg: 'ContentType必须是application/x-www-form-urlencoded'});
 		}
 	}
 }
 
 function DESEncode(req) {
-	var value = desCoder.DESEncode(req.body.data,'cicelsys');
+	var value = desCoder.DESEncode(req.body.data, 'cicelsys');
 	return value;
 }
 

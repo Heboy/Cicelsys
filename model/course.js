@@ -1,190 +1,169 @@
 /**
  * Created by Heboy on 14-1-23.
  */
-var database = require('../controller/database'),
-	connection = null;
+var events = require('events').EventEmitter,
+	util = require("util");
 
-var courseModel = {
-	courseID: null,
-	courseName: null,
-	department: null,
-	userID: null,
-	appkey: null,
-	note: null
+var db = null;
+
+function Course(database) {
+	db = database;
+	events.EventEmitter.call(this);
 }
-
-function Course(courseObj) {
-
-}
-exports.Course = Course;
-
-Course.prototype.databaseInit = function () {
-	connection = database.createConnection();
-}
-
-Course.prototype.databaseInitWithMultipleStatements = function () {
-	connection = database.createConnectionWithMultipleStatements();
-}
-
-Course.prototype.databaseEnd = function () {
-	connection.end();
-}
+util.inherits(Course, events.EventEmitter);
 
 /**
- *查询userID下所有课程
- * @param callback
+ * 更新课程
  */
-Course.prototype.getCourses = function (callback) {
-	var sql = 'select courseID,courseName,note from td_course where userID = ?',
-		inserts = [courseModel.userID];
-	sql = database.preparedQuery(sql, inserts);
-	connection.query(sql, function (err, results) {
-		if (err) {
-			callback(404, {result: false, msg: err});
-			return;
-		}
-		callback(200, {result: results});
+Course.prototype.update = function (courseObj) {
+	var sql = 'update td_course set courseName = ?,note = ? where courseID=?',
+		inserts = [courseObj.courseName, courseObj.note, courseObj.courseID];
+	sql = db.preparedQuery(sql, inserts);
+	db.query(sql, function (err, results) {
+		//res.json({affectedRows: results.affectedRows});
+		this.emit('updateComplete', results);
 	});
 }
 
 /**
- * 添加课程 可批量
- * @param dataObj
- * @param callback
+ * 添加课程
  */
-Course.prototype.addCourses = function (dataObj, callback) {
-	var data = dataObj.courses,
-		userID = dataObj.userID;
-	if (Array.isArray(data) && data.length > 0) {
-		var count = data.length;
-		for (var i = 0, len = data.length; i < len; i++) {
-			var sql = 'INSERT INTO td_course(courseName,userID,note) VALUES(?,?,?)',
-				inserts = [data[i].courseName, userID, data[i].note];
-			sql = database.preparedQuery(sql, inserts);
-			connection.query(sql, function (err, result) {
-				if (err) {
-					count = -1;
-					callback(404, {msg: err});
-				}
-				if (count == -1) {
-					return;
-				}
-				count--;
-				if (count == 0) {
-					callback(200, {msg: '添加成功'});
-				}
-			});
-		}
-	}
-	else {
-		callback(404, {msg: '参数错误'});
-	}
+Course.prototype.add = function (courseObj) {
+	var sql = 'insert into td_course(courseName,userID,note) VALUES(?,?,?)',
+		inserts = [courseObj.courseName, courseObj.userID, courseObj.note];
+	sql = db.preparedQuery(sql, inserts);
+	db.query(sql, function (err, results) {
+		//res.json({affectedRows: results.affectedRows})
+		this.emit('addComplete', results);
+	});
 }
 
 /**
- * 更新 可批量
- * @param dataObj
- * @param callback
+ * 获取课程信息
  */
-Course.prototype.updateCourses = function (dataObj,callback) {
-	var data =dataObj.courses;
-	if (Array.isArray(data) && data.length > 0) {
-		var count = data.length;
-		for (var i = 0, len = data.length; i < len; i++) {
-			var sql = 'update td_course set courseName = ?,note = ? where courseID=?',
-				inserts = [data[i].courseName,data[i].note,data[i].courseID];
-			sql = database.preparedQuery(sql, inserts);
-			connection.query(sql, function (err, results) {
-				if (err) {
-					count = -1;
-					callback(404, {msg: err});
-				}
-				if (count == -1) {
-					return;
-				}
-				count--;
-				if (count == 0) {
-					callback(200, {msg: '更新成功'});
-				}
-			});
-		}
-	}
-	else {
-		callback(404, {msg: '参数错误'});
-	}
+Course.prototype.get = function (courseObj) {
+	var sql = 'select * from td_course where courseID = ?',
+		inserts = [courseObj.courseID];
+	sql = db.preparedQuery(sql, inserts);
+	db.query(sql, function (err, results) {
+		//res.json({result: results});
+		this.emit('getComplete', results);
+	})
 }
 
+
 /**
- * 删除与批量删除
- * @param courses
- * @param userID
- * @param callback
+ * 删除
  */
-Course.prototype.deleteCourses = function (dataObj, callback) {
-	var data = dataObj.courses,
-		userID = dataObj.userID;
-	if (Array.isArray(data) && data.length > 0) {
-		var paramSql = '(courseID = ?',
-			logicSql1 = 'select courseID from td_course where userID = ? and ',
-			logicSql2 = 'delete from td_chapter where ',
-			logicSql3 = 'delete from td_course where userID = ? and ',
-			inserts = [userID];
-		for (var i = 0, len = data.length; i < len; i++) {
-			if (i != 0) {
-				paramSql += ' or courseID = ?';
-			}
-			inserts.push(data[i]);
-		}
-		paramSql += ')';
-		logicSql1 = database.preparedQuery(logicSql1 + paramSql, inserts);
-		connection.query(logicSql1, function (err, results) {
-			if (err) {
-				callback(404, {msg: err});
-			}
-			if (results.affectedRows != 0) {
-				inserts.shift();
-				logicSql2 = database.preparedQuery(logicSql2 + paramSql, inserts);
-				connection.query(logicSql2, function (err, results) {
-					if (err) {
-						callback(404, {msg: err});
-					}
-					inserts.unshift(userID);
-					logicSql3 = database.preparedQuery(logicSql3 + paramSql, inserts);
-					connection.query(logicSql3, function (err, results) {
-						if (err) {
-							callback(404, {msg: err});
-						}
-						callback(200, {msg: results});
-					});
-				});
-			}
+Course.prototype.delete = function (courseObj) {
+	var sql1 = 'delete from td_chapter where courseID = ?',
+		sql2 = 'delete from td_course where courseID = ?',
+		inserts = [courseObj.courseID];
+	sql1 = db.preparedQuery(sql1, inserts);
+	db.query(sql1, function (err, results) {
+		sql2 = db.preparedQuery(sql2, inserts);
+		db.query(sql2, function (err, results) {
+			this.emit('deleteComplete', results);
 		});
+	});
+}
+
+/**
+ *
+ * @param courses
+ */
+Course.prototype.addCourses = function (courses) {
+	var sql = '',
+		inserts = [];
+	if (Array.isArray(courses)) {
+		for (var i = 0, len = courses.length; i < len; i++) {
+			sql = 'insert into td_course(courseName,userID,note) VALUES(?,?,?)';
+			inserts = [courses.courseName, courses.userID, courses.note];
+			sql += db.preparedQuery(sql, inserts) + ';';
+		}
+		db.query(sql, function (err, results) {
+			this.emit('addComplete', results)
+		})
 	}
 	else {
-		callback(404, {msg: '参数错误'});
+		this.emit('error', '参数类型错误');
 	}
 }
 
 /**
- * 获取appkey
- * @param courseID
- * @param callback
+ *
+ * @param courses
  */
-Course.prototype.getAppKey = function (courseID, callback) {
-	var sql = 'select appkey from td_course where courseID=?',
-		inserts = [courseModel.courseID];
-	sql = database.preparedQuery(sql, inserts);
-	connection.query(sql, function (err, results) {
-		if (err) {
-			callback(404, {result: false, msg: err})
+Course.prototype.updateCourses = function (courses) {
+	var sql = '',
+		inserts = [];
+	if (Array.isArray(courses)) {
+		for (var i = 0, len = courses.length; i < len; i++) {
+			sql = 'update td_course set courseName = ?,note = ? where courseID=?';
+			inserts = [courses.courseName, courses.note, courses.courseID];
+			sql += db.preparedQuery(sql, inserts) + ';';
 		}
-		else if (results) {
-			if (results.length > 0) {
-				callback(200, {result: results[0].appkey, msg: '取得appkey'});
-			}
-			else {
-				callback(200, {result: null, msg: '未取得appkey'});
-			}
-		}
-	});
+		db.query(sql, function (err, results) {
+			this.emit('updateComplete', results);
+		})
+	}
+	else {
+		this.emit('error', '参数类型错误');
+	}
 }
+
+/**
+ *
+ * @param ids
+ */
+Course.prototype.getCourses = function (ids) {
+	var sql = 'select * from td_course where courseID = ?',
+		param = '';
+	if (Array.isArray(ids)) {
+		for (var i = 0, len = ids.length; i < len; i++) {
+			if (i != 0) {
+				param += ' or courseID = ?';
+			}
+			param.push(ids[i]);
+		}
+		param += ')';
+		sql = db.preparedQuery(sql + param, ids);
+		db.query(sql, function (err, results) {
+			this.emit('deleteComplete', results);
+		})
+	}
+	else {
+		this.emit('error', '参数类型错误');
+	}
+}
+
+/**
+ *
+ * @param ids
+ */
+Course.prototype.deleteCourses = function (ids) {
+	var param = '(courseID = ?',
+		sql1 = 'delete from td_chapter where ',
+		sql2 = 'delete from td_course where ';
+	if (Array.isArray(ids)) {
+		for (var i = 0, len = ids.length; i < len; i++) {
+			if (i != 0) {
+				param += ' or courseID = ?';
+			}
+			param.push(ids[i]);
+		}
+		param += ')';
+		sql1 = db.preparedQuery(sql1 + param, ids);
+		db.query(sql1, function (err, results) {
+				sql2 = db.preparedQuery(sql2 + param, ids);
+				db.query(sql2, function (err, results) {
+					this.emit('deleteComplete',results);
+				});
+			});
+	}
+	else {
+		this.emit('error', '参数类型错误');
+	}
+}
+
+exports.Course = Course;

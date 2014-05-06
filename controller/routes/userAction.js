@@ -2,7 +2,7 @@
  * Created by Heboy on 14-1-17.
  */
 var userModel = require('../../model/user');
-var cc = require('../certification/DESCoder');
+var cc = require('../DESCoder');
 
 exports.getUserById = function(userID,callback){
 	var user = new userModel.user(null);

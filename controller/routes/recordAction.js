@@ -1,7 +1,7 @@
 /**
  * Created by Heboy on 14-2-13.
  */
-var desCoder = require('../certification/DESCoder');
+var desCoder = require('../DESCoder');
 var courseModel = require('../../model/course');
 
 exports.addCoursebasedGeneralData = function (req, res) {

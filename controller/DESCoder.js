@@ -2,7 +2,7 @@
  * Created by Heboy on 14-2-11.
  */
 var crypto = require('crypto'),
-	userModel = require('../../model/user');
+	userModel = require('../model/user');
 
 exports.DESDecode = function (req, res, callback) {
 	var user = new userModel.User(null),
@@ -14,7 +14,7 @@ exports.DESDecode = function (req, res, callback) {
 		user.databaseInit();
 		user.getAppkey(req.body.userID, function (appkey, msg) {
 			if (appkey == '404') {
-				res.json(400, msg);
+				res.json(404, msg);
 			}
 			else {
 				req.session['appkey'] = appkey;
@@ -44,6 +44,22 @@ exports.DESDecode = function (req, res, callback) {
 		}
 		callback(result);
 	}
+}
+
+exports.desDecode = function(data,appkey){
+	var decipher = null,
+		iv = '12345678',
+		dec = null,
+		result = null;
+	decipher = crypto.createDecipheriv('des', appkey,iv);
+	try {
+		dec = decipher.update(data, 'base64', 'utf8');
+		dec += decipher.final('utf8');
+		result = JSON.parse(dec);
+	} catch (err) {
+		throw err;
+	}
+	return result;
 }
 ///////////////////////////////////////////////////////
 exports.DESEncode = function (data, appkey) {
